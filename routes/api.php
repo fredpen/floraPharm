@@ -67,7 +67,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('hot', 'BrandController@hot');
     Route::get('new', 'BrandController@new');
     Route::get('landing_page', 'BrandController@landing_page');
-
+});
 
 // wishlist
 Route::group( ['prefix' => 'wishlist', 'middleware' => 'auth:api'], function () {
