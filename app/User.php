@@ -39,6 +39,14 @@ class User extends Authenticatable
     ];
 
     public function userAddress(){
-        return $this->hasMany('App\UserAddress');
+        return $this->hasMany('App\Models\UserAddress');
+    }
+
+    public function forgetPasswordToken(){
+        return $this->hasMany('App\Models\ForgetPasswordToken');
+    }
+
+    public function order(){
+        return $this->hasMany('App\Models\Order');
     }
 }

@@ -42,6 +42,15 @@ class CategoryController extends Controller
         return ResponseHelper::success('Operation successful', $category['message']);
     }
 
+    public function delete($categoryId)
+    {
+        $category = $this->categoryService->delete($categoryId);
+        if (! $category['status']) {
+            return ResponseHelper::badRequest($category['message']);
+        }
+        return ResponseHelper::success('Operation successful', $category['message']);
+    }
+
     public function all()
     {
         $categories = $this->categoryService->all();

@@ -2,40 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ResponseHelper;
-use App\Services\SubCategoryservice;
 use Illuminate\Http\Request;
+use App\Helpers\ResponseHelper;
+use App\Services\BrandService;
 
-class SubCategoryController extends Controller
+class BrandController extends Controller
 {
-    protected $subCategoryservice;
+    protected $brandService;
 
-    public function __construct(SubCategoryservice $subCategoryservice)
+    public function __construct(BrandService $brandService)
     {
-        $this->subCategoryservice = $subCategoryservice;
+        $this->brandService = $brandService;
     }
 
     public function create(Request $request)
     {
-        $create = $this->subCategoryservice->create($request);
+        $create = $this->brandService->create($request);
         if (! $create['status']) {
             return ResponseHelper::badRequest($create['message']);
         }
         return ResponseHelper::success('Operation successful');
     }
 
-    public function show($subCategoryId)
+    public function show($brandId)
     {
-        $subCategory = $this->subCategoryservice->showSub($subCategoryId);
+        $subCategory = $this->brandService->show($brandId);
         if (! $subCategory['status']) {
             return ResponseHelper::badRequest($subCategory['message']);
         }
         return ResponseHelper::success('Operation successful', $subCategory['message']);
     }
 
-    public function delete($subCategoryId)
+    public function delete($brandId)
     {
-        $subCategory = $this->subCategoryservice->deleteSub($subCategoryId);
+        $subCategory = $this->brandService->delete($brandId);
         if (! $subCategory['status']) {
             return ResponseHelper::badRequest($subCategory['message']);
         }
@@ -45,7 +45,7 @@ class SubCategoryController extends Controller
 
     public function edit(Request $request)
     {
-        $edit = $this->subCategoryservice->edit($request);
+        $edit = $this->brandService->edit($request);
         if (! $edit['status']) {
             return ResponseHelper::badRequest($edit['message']);
         }
@@ -54,12 +54,10 @@ class SubCategoryController extends Controller
 
     public function all()
     {
-        $categories = $this->subCategoryservice->all();
+        $categories = $this->brandService->all();
         if (! $categories['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $categories['message']);
     }
-
-
 }

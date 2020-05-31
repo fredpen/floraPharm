@@ -11,12 +11,18 @@ interface CategoryInterface
 
     public function all();
 
+    public function delete($categoryId);
+
     public function show($categoryId);
 
     // sub categories
-    public function createSub($request);
+    public function createSub($category_id, $name);
 
     public function editSub($request);
+
+    public function showSub($category_id);
+
+    public function deleteSub($category_id);
 
     public function allSub();
 }
