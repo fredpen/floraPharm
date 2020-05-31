@@ -28,6 +28,8 @@ Route::group(['prefix' => 'category'], function () {
 Route::group(['prefix' => 'order'], function(){
    Route::post('make-order', 'OrderController@makePayment')->middleware('auth:api');
    Route::post('verify-transaction', 'OrderController@verifyTransaction')->middleware('auth:api');
+   Route::get('', 'OrderController@getUserOrder')->middleware('auth:api');
+   Route::get('all', 'OrderController@allOrder')->middleware(['auth:api', 'isAdmin']);
 });
 
 // subcategory
