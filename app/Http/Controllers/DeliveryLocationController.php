@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ResponseHelper;
 use App\Services\DeliveryLocationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class DeliveryLocationController extends Controller
 {
@@ -15,8 +16,13 @@ class DeliveryLocationController extends Controller
     {
         $this->deliveryLocationService = $deliveryLocationService;
     }
+    public function websiteDetails()
+    {
+        return ResponseHelper::responseDisplay(200, 'Operation successful', Config::get('constants.WEBSITE_DETAILS', []));
+    }
 
-    public function addLocation(Request $request){
+    public function addLocation(Request $request)
+    {
         $location = $this->deliveryLocationService->createLocation($request);
 
         if ($location === 'saved') {
@@ -25,13 +31,12 @@ class DeliveryLocationController extends Controller
 
         if (is_array($location)) {
             return ResponseHelper::responseDisplay(400, 'Validation error', $location);
-
         }
         return ResponseHelper::responseDisplay(400, 'Operation failed');
-
     }
 
-    public function updateLocation(Request $request, $id) {
+    public function updateLocation(Request $request, $id)
+    {
         $location = $this->deliveryLocationService->updateLocation($request, $id);
         if ($location === 'updated') {
             return ResponseHelper::responseDisplay(200, 'Operation successful', $location);
@@ -39,29 +44,26 @@ class DeliveryLocationController extends Controller
 
         if (is_array($location)) {
             return ResponseHelper::responseDisplay(400, 'Validation error', $location);
-
         }
         return ResponseHelper::responseDisplay(400, 'Operation failed');
-
     }
 
-    public function deleteLocation($id) {
+    public function deleteLocation($id)
+    {
         $deliveryLocation = $this->deliveryLocationService->deleteLocation($id);
         if ($deliveryLocation ===  'deleted') {
             return ResponseHelper::responseDisplay(200, 'Operation successful', $deliveryLocation);
-
         }
         return ResponseHelper::responseDisplay(400, 'Operation failed');
-
     }
 
 
-    public function locations(){
+    public function locations()
+    {
         $locations = $this->deliveryLocationService->fetchAllDeliveryLocation();
         if ($locations) {
             return ResponseHelper::responseDisplay(200, 'Operation successful', $locations);
         }
         return ResponseHelper::responseDisplay(400, 'Operation failed');
-
     }
 }
