@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Cart;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,5 +49,9 @@ class User extends Authenticatable
 
     public function order(){
         return $this->hasMany('App\Models\Order');
+    }
+
+    public function cart(){
+        return $this->hasMany(Cart::class);
     }
 }

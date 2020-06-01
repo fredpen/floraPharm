@@ -17,7 +17,7 @@ class Order extends Model
 
 
     public function address() {
-        return $this->belongsTo(UserAddress::Class);
+        return $this->belongsTo(UserAddress::class);
     }
 
 
