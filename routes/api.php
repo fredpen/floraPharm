@@ -28,6 +28,8 @@ Route::group(['prefix' => 'category'], function () {
 
 Route::group(['prefix' => 'order'], function(){
    Route::post('make-order', 'OrderController@makePayment')->middleware('auth:api');
+   Route::post('guest-order', 'OrderController@makePayment');
+   Route::post('verify-guest-transaction', 'OrderController@verifyTransaction');
    Route::post('verify-transaction', 'OrderController@verifyTransaction')->middleware('auth:api');
    Route::get('', 'OrderController@getUserOrder')->middleware('auth:api');
    Route::get('show/{orderId}', 'OrderController@getSingleOrder')->middleware(['auth:api', 'isAdmin']);
@@ -64,8 +66,7 @@ Route::group(['prefix' => 'brand'], function () {
 
 // products
 Route::group(['prefix' => 'product'], function () {
-    Route::post('create', 'ProductController@create')
-    ;
+    Route::post('create', 'ProductController@create');
     Route::post('edit', 'ProductController@edit')->middleware(['auth:api', 'isAdmin']);
     Route::get('delete/{productId}', 'ProductController@delete')->middleware(['auth:api', 'isAdmin']);
     Route::get('show/{productId}', 'ProductController@show');
@@ -83,6 +84,8 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('new', 'ProductController@new');
     Route::get('landing_page', 'ProductController@landingPage');
 });
+
+//top pick, hot, new, featured
 
 // wishlist
 Route::group( ['prefix' => 'wishlist', 'middleware' => 'auth:api'], function () {
