@@ -28,8 +28,20 @@ class SubCategoryservice
             return ResponseHelper::reply(false, $validate->errors()->first());
         }
 
-        $create = $this->categoryInterface->createSub($request->id, $request->name);
+        $create = $this->categoryInterface->createSub($request->category_id, $request->name);
         return $create ? ResponseHelper::reply(true) : ResponseHelper::reply(false, "could not execute request");
+    }
+
+    public function showSub($sub_categoryId)
+    {
+        $subCategory = $this->categoryInterface->showSub($sub_categoryId);
+        return $subCategory ? ResponseHelper::reply(true, $subCategory) : ResponseHelper::reply(false, "Invalid sub category id");
+    }
+
+    public function deleteSub($sub_categoryId)
+    {
+        $subCategory = $this->categoryInterface->deleteSub($sub_categoryId);
+        return $subCategory ? ResponseHelper::reply(true, $subCategory) : ResponseHelper::reply(false, "could not execute request - invalid category ID");
     }
 
     public function edit($request)
@@ -42,7 +54,6 @@ class SubCategoryservice
         $create = $this->categoryInterface->editSub($validate->valid());
         return $create ? ResponseHelper::reply(true) : ResponseHelper::reply(false, "could not execute request");
     }
-
 
     private function validateCreateRequest($request)
     {

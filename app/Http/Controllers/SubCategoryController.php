@@ -24,6 +24,25 @@ class SubCategoryController extends Controller
         return ResponseHelper::success('Operation successful');
     }
 
+    public function show($subCategoryId)
+    {
+        $subCategory = $this->subCategoryservice->showSub($subCategoryId);
+        if (! $subCategory['status']) {
+            return ResponseHelper::badRequest($subCategory['message']);
+        }
+        return ResponseHelper::success('Operation successful', $subCategory['message']);
+    }
+
+    public function delete($subCategoryId)
+    {
+        $subCategory = $this->subCategoryservice->deleteSub($subCategoryId);
+        if (! $subCategory['status']) {
+            return ResponseHelper::badRequest($subCategory['message']);
+        }
+        return ResponseHelper::success('Operation successful', []);
+    }
+
+
     public function edit(Request $request)
     {
         $edit = $this->subCategoryservice->edit($request);

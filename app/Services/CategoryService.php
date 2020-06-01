@@ -27,6 +27,12 @@ class CategoryService
         return $category ? ResponseHelper::reply(true, $category) : ResponseHelper::reply(false, "could not execute request");
     }
 
+    public function delete($categoryId)
+    {
+        $category = $this->categoryInterface->delete($categoryId);
+        return $category ? ResponseHelper::reply(true, $category) : ResponseHelper::reply(false, "could not execute request - invalid category ID");
+    }
+
     public function create($request)
     {
         $validate = $this->validateCreateRequest($request->all());

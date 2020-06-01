@@ -27,11 +27,16 @@ class BrandRespository implements BrandInterface
 
     public function all()
     {
-       return $this->brand ? $this->brand->with('subCategory')->paginate(20) : false;
+       return $this->brand ? $this->brand->paginate(20) : false;
     }
 
-    public function show($category_id)
+    public function show($brandId)
     {
-       return $this->brand->where('id', $category_id)->with('subCategory')->first();
+       return $this->brand->where('id', $brandId)->first();
+    }
+
+    public function delete($brandId)
+    {
+       return $this->brand->where('id', $brandId)->delete();
     }
 }

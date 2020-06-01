@@ -38,6 +38,11 @@ class CategoryRepository implements CategoryInterface
        return $this->category->where('id', $category_id)->with('subCategory')->first();
     }
 
+    public function delete($categoryId)
+    {
+       return $this->category->where('id', $categoryId)->delete();
+    }
+
     // sub categories
     public function createSub($category_id, $name)
     {
@@ -52,8 +57,18 @@ class CategoryRepository implements CategoryInterface
        return $this->subCategory->where('id', $request['id'])->update(['name' => $request['name']]);
     }
 
+    public function showSub($category_id)
+    {
+       return $this->subCategory->where('id', $category_id)->with('category')->first();
+    }
+
+    public function deleteSub($category_id)
+    {
+       return $this->subCategory->where('id', $category_id)->delete();
+    }
+
     public function allSub()
     {
-       return $this->subCategory ? $this->subCategory->with('category')->paginate(20) : false;
+       return $this->subCategory ? $this->subCategory->paginate(20) : false;
     }
 }

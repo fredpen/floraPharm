@@ -30,8 +30,8 @@ class ProductRepository implements ProductInterface
        return $this->product ? $this->product->with('subCategory')->paginate(20) : false;
     }
 
-    public function show($category_id)
+    public function show($productId)
     {
-       return $this->product->where('id', $category_id)->with('subCategory')->first();
+       return $this->product->where('id', $productId)->with('subCategory')->first();
     }
 }

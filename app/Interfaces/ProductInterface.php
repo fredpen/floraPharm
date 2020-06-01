@@ -12,6 +12,6 @@ interface ProductInterface
 
     public function all();
 
-    public function show($categoryId);
+    public function show($productId);
 
 }

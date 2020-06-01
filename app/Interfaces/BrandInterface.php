@@ -11,6 +11,8 @@ interface BrandInterface
 
     public function all();
 
-    public function show($categoryId);
+    public function show($brandId);
+
+    public function delete($brandId);
 
 }
