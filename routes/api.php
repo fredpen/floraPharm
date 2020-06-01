@@ -83,3 +83,11 @@ Route::group( ['prefix' => 'wishlist', 'middleware' => 'auth:api'], function () 
     Route::get('all', 'WishListController@all');
 });
 
+// cart
+Route::group( ['prefix' => 'cart', 'middleware' => 'auth:api'], function () {
+    //call this endpoint for removal too just pass zero as quantity
+    Route::post('update', 'CartController@update');
+    Route::get('clear', 'CartController@clear');
+    Route::get('my-cart', 'CartController@fetch');
+    Route::get('all', 'CartController@all')->middleware('isAdmin'); //for admin
+});

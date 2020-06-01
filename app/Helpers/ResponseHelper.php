@@ -40,6 +40,14 @@ class ResponseHelper
         ], 400);
     }
 
+    public static function serverError($message)
+    {
+        return response()->json([
+            'status' => false,
+            'message' => $message,
+        ], 500);
+    }
+
     public static function unAuthorized($message, $data = null)
     {
         return response()->json([
