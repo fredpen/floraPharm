@@ -21,7 +21,7 @@ class BrandController extends Controller
         if (! $create['status']) {
             return ResponseHelper::badRequest($create['message']);
         }
-        return ResponseHelper::success('Operation successful');
+        return ResponseHelper::success('Operation successful', $create['message']);
     }
 
     public function show($brandId)

@@ -60,5 +60,14 @@ class CategoryController extends Controller
         return ResponseHelper::success('Operation successful', $categories['message']);
     }
 
+    public function allWithoutSub()
+    {
+        $categories = $this->categoryService->allWithoutSub();
+        if (! $categories['status']) {
+            return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $categories['message']);
+    }
+
 
 }

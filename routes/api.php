@@ -23,6 +23,7 @@ Route::group(['prefix' => 'category'], function () {
     Route::get('delete/{categoryId}', 'CategoryController@delete')->middleware(['auth:api', 'isAdmin']);
     Route::get('show/{categoryId}', 'CategoryController@show');
     Route::get('all-categories', 'CategoryController@all');
+    Route::get('all-categories-without-sub', 'CategoryController@allWithoutSub');
 });
 
 Route::group(['prefix' => 'order'], function(){
@@ -53,7 +54,8 @@ Route::group(['prefix' => 'brand'], function () {
 
 // products
 Route::group(['prefix' => 'product'], function () {
-    Route::post('create', 'ProductController@create')->middleware(['auth:api', 'isAdmin']);
+    Route::post('create', 'ProductController@create')
+    ;
     Route::post('edit', 'ProductController@edit')->middleware(['auth:api', 'isAdmin']);
     Route::get('delete/{productId}', 'ProductController@delete')->middleware(['auth:api', 'isAdmin']);
     Route::get('show/{productId}', 'ProductController@show');
@@ -61,14 +63,14 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('active', 'ProductController@active');
 
     // relationships
-    Route::get('brand/{brandId}', 'BrandController@brand');
-    Route::get('category/{categoryId}', 'BrandController@category');
-    Route::get('sub-category/{subCategoryId}', 'BrandController@subCategory');
-    Route::get('best-sellers', 'BrandController@bestSellers');
-    Route::get('featured', 'BrandController@featured');
-    Route::get('hot', 'BrandController@hot');
-    Route::get('new', 'BrandController@new');
-    Route::get('landing_page', 'BrandController@landing_page');
+    Route::get('brand/{brandId}', 'ProductController@brand');
+    Route::get('category/{categoryId}', 'ProductController@category');
+    Route::get('sub-category/{subCategoryId}', 'ProductController@subCategory');
+    Route::get('best-sellers', 'ProductController@bestSellers');
+    Route::get('featured', 'ProductController@featured');
+    Route::get('hot', 'ProductController@hot');
+    Route::get('new', 'ProductController@new');
+    Route::get('landing_page', 'ProductController@landing_page');
 });
 
 // wishlist
