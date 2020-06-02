@@ -74,8 +74,8 @@ class UserService
     {
         return Validator::make($request->all(), [
             'address' => 'required|string',
-            'city' => 'required|string',
-            'country' => 'required|string',
+            'city' => 'string',
+            'country' => 'string',
             'default_status' => 'integer'
         ]);
     }
