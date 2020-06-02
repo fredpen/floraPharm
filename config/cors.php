@@ -20,7 +20,7 @@ return [
         'allow_credentials' => false,
 
         'allow_origins' => [
-            '/api/*',
+            '*',
         ],
 
         'allow_methods' => [

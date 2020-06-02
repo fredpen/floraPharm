@@ -61,14 +61,14 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('active', 'ProductController@active');
 
     // relationships
-    Route::get('brand/{brandId}', 'BrandController@brand');
-    Route::get('category/{categoryId}', 'BrandController@category');
-    Route::get('sub-category/{subCategoryId}', 'BrandController@subCategory');
-    Route::get('best-sellers', 'BrandController@bestSellers');
-    Route::get('featured', 'BrandController@featured');
-    Route::get('hot', 'BrandController@hot');
-    Route::get('new', 'BrandController@new');
-    Route::get('landing_page', 'BrandController@landing_page');
+    Route::get('brand/{brandId}', 'ProductController@brand');
+    Route::get('category/{categoryId}', 'ProductController@category');
+    Route::get('sub-category/{subCategoryId}', 'ProductController@subCategory');
+    Route::get('best-sellers', 'ProductController@bestSellers');
+    Route::get('featured', 'ProductController@featured');
+    Route::get('hot', 'ProductController@hot');
+    Route::get('new', 'ProductController@new');
+    Route::get('landing_page', 'ProductController@landing_page');
 });
 
 // wishlist
