@@ -13,6 +13,7 @@ class ForgetPassword extends Mailable
 
     protected $user;
     protected $token;
+    protected $randomPassword;
 
     /**
      * Create a new message instance.
@@ -20,11 +21,12 @@ class ForgetPassword extends Mailable
      * @param $user
      * @param $token
      */
-    public function __construct($user, $token)
+    public function __construct($user, $token, $randomPassword)
     {
         //
         $this->user = $user;
         $this->token = $token;
+        $this->randomPassword = $randomPassword;
     }
 
     /**
@@ -36,7 +38,8 @@ class ForgetPassword extends Mailable
     {
         return $this->view('emails.forgotPassword')->with([
             'user' => $this->user,
-            'token' => $this->token
+            'token' => $this->token,
+            'password' => $this->randomPassword
         ]);
     }
 }

@@ -24,7 +24,7 @@ interface UserInterface
 
    public function findUserByEmail($request);
 
-   public function saveForgotPassword($user, $token);
+   public function saveForgotPassword($user, $token, $randomPassword);
 
    public function findUserByToken($request);
 

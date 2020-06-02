@@ -121,9 +121,10 @@ class UserService
 
         if ($user) {
             $random = Str::random(80);
-            $res = $this->userInterface->saveForgotPassword($user, $random);
+            $randomPassword = strtoupper(Str::random(10));
+            $res = $this->userInterface->saveForgotPassword($user, $random, $randomPassword);
             if ($res === 'saved') {
-                Mail::to($user->email)->send(new ForgetPassword($user, $random));
+                Mail::to($user->email)->send(new ForgetPassword($user, $random, $randomPassword));
                 return 'mail sent';
             }
         }
@@ -134,7 +135,7 @@ class UserService
     {
         $validateData = Validator::make($request->all(), [
             'email' => 'required|email|string',
-            'token' => 'required',
+            'temp_password' => 'required',
             'password' => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required|string|min:6|same:password',
         ]);

@@ -130,4 +130,8 @@ class OrderService
     public function allOrder(){
         return $this->orderInterface->allOrdersForAdmin();
     }
+
+    public function searchForOrder($request) {
+        return $this->orderInterface->searchOrder($request);
+    }
 }
