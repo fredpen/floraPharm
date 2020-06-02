@@ -35,6 +35,7 @@ class OrderRepository implements OrderInterface
         $this->order->order_num = $this->random_number;
         $this->order->promo_code = $request->promoCode;
         $this->order->address_id = $request->addressId;
+        $this->order->delivery_type = $request->delivery_type;
         $this->order->address = json_encode($request->address);
         $this->order->delivery_location_id = $request->delivery_location_id;
         $this->order->user_id = Auth::id();
@@ -55,7 +56,7 @@ class OrderRepository implements OrderInterface
             }
             return $this->order;
         } else {
-            return 'Error Processing';
+            return 'Error Processing (product/amount may not exist)';
         }
 
 
