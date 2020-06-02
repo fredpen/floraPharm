@@ -19,10 +19,26 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'phone_number' => $faker->phoneNumber,
+        'status' => 1,
+        'type' => 2,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];
 });
+
+$factory->define(\App\Models\UserAddress::class, function(Faker $faker) {
+   return [
+        'address' => $faker->address,
+        'city' => $faker->city,
+        'state' => $faker->state,
+        'country' => $faker->country,
+        'post_code' => $faker->postcode,
+         'default_status' => 0
+   ];
+});
+
