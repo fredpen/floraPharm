@@ -79,6 +79,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('active', 'ProductController@active');
 
     // relationships
+    Route::get('order-notifications/{productId}', 'ProductController@orderNotifications');
     Route::get('home-page', 'ProductController@homePage');
     Route::get('brand/{brandId}', 'ProductController@brand');
     Route::get('admin/brand/{brandId}', 'ProductController@adminBrand');
