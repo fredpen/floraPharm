@@ -23,6 +23,7 @@ Route::group(['prefix' => 'category'], function () {
     Route::get('delete/{categoryId}', 'CategoryController@delete')->middleware(['auth:api', 'isAdmin']);
     Route::get('show/{categoryId}', 'CategoryController@show');
     Route::get('all-categories', 'CategoryController@all');
+    Route::get('all-categories-without-sub', 'CategoryController@allWithoutSub');
 });
 
 Route::group(['prefix' => 'order'], function(){
@@ -53,7 +54,8 @@ Route::group(['prefix' => 'brand'], function () {
 
 // products
 Route::group(['prefix' => 'product'], function () {
-    Route::post('create', 'ProductController@create')->middleware(['auth:api', 'isAdmin']);
+    Route::post('create', 'ProductController@create')
+    ;
     Route::post('edit', 'ProductController@edit')->middleware(['auth:api', 'isAdmin']);
     Route::get('delete/{productId}', 'ProductController@delete')->middleware(['auth:api', 'isAdmin']);
     Route::get('show/{productId}', 'ProductController@show');

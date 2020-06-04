@@ -29,7 +29,7 @@ class SubCategoryservice
         }
 
         $create = $this->categoryInterface->createSub($request->category_id, $request->name);
-        return $create ? ResponseHelper::reply(true) : ResponseHelper::reply(false, "could not execute request");
+        return $create ? ResponseHelper::reply(true, $create) : ResponseHelper::reply(false, "could not execute request");
     }
 
     public function showSub($sub_categoryId)

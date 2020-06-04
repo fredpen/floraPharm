@@ -41,7 +41,7 @@ class BrandService
         }
 
         $create = $this->brandInterface->create($request->only(['name', 'description']));
-        return $create ? ResponseHelper::reply(true) : ResponseHelper::reply(false, "could not execute request");
+        return $create ? ResponseHelper::reply(true, $create) : ResponseHelper::reply(false, "could not execute request");
     }
 
     public function edit($request)
@@ -52,7 +52,7 @@ class BrandService
         }
 
         $create = $this->brandInterface->edit($validate->valid());
-        return $create ? ResponseHelper::reply(true) : ResponseHelper::reply(false, "could not execute request");
+        return $create ? ResponseHelper::reply(true, $create) : ResponseHelper::reply(false, "could not execute request");
     }
 
 
