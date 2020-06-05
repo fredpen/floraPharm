@@ -15,8 +15,10 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['prefix' => 'category'], function () {
-    Route::post('create', 'Auth\RegisterController@create');
-    Route::post('edit', 'Auth\LoginController@authenticate');
-    Route::resource('delete', 'UserAddressController')->middleware('auth:api');
-    Route::get('show', 'UserAddressController@userDetail')->middleware('auth:api');
+    Route::post('create', 'CategoryController@create')->middleware('isAdmin');
+    Route::post('edit', 'CategoryController@edit')->middleware('isAdmin');
+    Route::get('delete', 'CategoryController@delete')->middleware('isAdmin');
+    Route::get('show', 'CategoryController@show');
+    Route::get('all-categories', 'CategoryController@all');
+    Route::get('all-categories-with-sub-categories', 'CategoryController@categoriesWithSubCategories');
 });

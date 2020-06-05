@@ -1,19 +1,17 @@
 <?php
 
-
 namespace App\Services;
 
-
-
+use App\Interfaces\CategoryInterface;
 
 class CategoryService
 {
-    protected $userInterface;
+    protected $categoryInterface;
 
-    // // public function __construct(CategoryIn $userInterface)
-    // {
-    //     $this->userInterface = $userInterface;
-    // }
+    public function __construct(CategoryInterface $categoryInterface)
+    {
+        $this->categoryInterface = $categoryInterface;
+    }
 
 
 }
