@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\CategoryService;
-use Illuminate\Http\Request;
 use App\Helpers\ResponseHelper;
+use App\Services\SubCategoryservice;
+use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
-    protected $categoryService;
+    protected $subCategoryservice;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct(SubCategoryservice $subCategoryservice)
     {
-        $this->categoryService = $categoryService;
+        $this->subCategoryservice = $subCategoryservice;
     }
 
     public function create(Request $request)
     {
-        $create = $this->categoryService->create($request);
+        $create = $this->subCategoryservice->create($request);
         if (! $create['status']) {
             return ResponseHelper::badRequest($create['message']);
         }
@@ -26,25 +26,16 @@ class CategoryController extends Controller
 
     public function edit(Request $request)
     {
-        $edit = $this->categoryService->edit($request);
+        $edit = $this->subCategoryservice->edit($request);
         if (! $edit['status']) {
             return ResponseHelper::badRequest($edit['message']);
         }
         return ResponseHelper::success('Operation successful');
     }
 
-    public function show($categoryId)
-    {
-        $category = $this->categoryService->show($categoryId);
-        if (! $category['status']) {
-            return ResponseHelper::badRequest($category['message']);
-        }
-        return ResponseHelper::success('Operation successful', $category['message']);
-    }
-
     public function all()
     {
-        $categories = $this->categoryService->all();
+        $categories = $this->subCategoryservice->all();
         if (! $categories['status']) {
             return ResponseHelper::badRequest("fail");
         }

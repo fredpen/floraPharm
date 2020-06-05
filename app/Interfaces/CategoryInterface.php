@@ -1,24 +1,22 @@
 <?php
 
-
 namespace App\Interfaces;
 
 
-interface UserInterface
+interface CategoryInterface
 {
-   public function registerUser($request);
+    public function create($request);
 
-   public function authUser($request);
+    public function edit($request);
 
-   public function saveAddress($request);
+    public function all();
 
-   public function getAddressById();
+    public function show($categoryId);
 
-   public function getSingleAddressById($request);
+    // sub categories
+    public function createSub($request);
 
-   public function updateUserAddressById($request, $id);
+    public function editSub($request);
 
-   public function destroyAddress($request);
-
-   public function userDetail();
+    public function allSub();
 }
