@@ -4,7 +4,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(DeliveryLocation::class, function (Faker $faker) {
+$factory->define(\App\Models\DeliveryLocation::class, function (Faker $faker) {
     return [
         'name' => $faker->word(),
         'description' => $faker->words(5, true),
