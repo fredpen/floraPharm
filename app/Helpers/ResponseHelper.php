@@ -5,6 +5,14 @@ namespace App\Helpers;
 class ResponseHelper
 {
 
+    public static function reply($status, $message = '')
+    {
+        return [
+            'status' => $status,
+            'message' => $message,
+        ];
+    }
+
     public static function responseDisplay($status, $message, $data = null)
     {
         return response()->json([
@@ -17,6 +25,7 @@ class ResponseHelper
     public static function success($message, $data = null)
     {
         return response()->json([
+            'status' => true,
             'message' => $message,
             'data' => $data,
         ], 200);
@@ -25,6 +34,7 @@ class ResponseHelper
     public static function badRequest($message, $data = null)
     {
         return response()->json([
+            'status' => false,
             'message' => $message,
             'data' => $data,
         ], 400);
@@ -33,6 +43,7 @@ class ResponseHelper
     public static function unAuthorized($message, $data = null)
     {
         return response()->json([
+            'status' => false,
             'message' => $message,
             'data' => $data,
         ], 401);
@@ -41,11 +52,12 @@ class ResponseHelper
     public static function forbidden($message, $data = null)
     {
         return response()->json([
+            'status' => false,
             'message' => $message,
             'data' => $data,
         ], 403);
     }
-    
+
     public static function response($data = 'fail', $status = false)
     {
         return ['status' => $status, 'data' => $data];

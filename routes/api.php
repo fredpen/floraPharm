@@ -15,10 +15,19 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['prefix' => 'category'], function () {
-    Route::post('create', 'CategoryController@create')->middleware('isAdmin');
-    Route::post('edit', 'CategoryController@edit')->middleware('isAdmin');
-    Route::get('delete', 'CategoryController@delete')->middleware('isAdmin');
-    Route::get('show', 'CategoryController@show');
+    Route::post('create', 'CategoryController@create')->middleware(['auth:api', 'isAdmin']);
+    Route::post('edit', 'CategoryController@edit')->middleware(['auth:api', 'isAdmin']);
+    Route::get('delete', 'CategoryController@delete')->middleware(['auth:api', 'isAdmin']);
+    Route::get('show/{categoryId}', 'CategoryController@show');
     Route::get('all-categories', 'CategoryController@all');
     Route::get('all-categories-with-sub-categories', 'CategoryController@categoriesWithSubCategories');
 });
+
+Route::group(['prefix' => 'sub-category'], function () {
+    Route::post('create', 'SubCategoryController@create')->middleware(['auth:api', 'isAdmin']);
+    Route::post('edit', 'SubCategoryController@edit')->middleware(['auth:api', 'isAdmin']);
+    Route::get('delete', 'SubCategoryController@delete')->middleware(['auth:api', 'isAdmin']);
+    Route::get('show', 'SubCategoryController@show');
+    Route::get('all-sub-categories', 'SubCategoryController@all');
+});
+
