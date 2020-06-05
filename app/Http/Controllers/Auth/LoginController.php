@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Services\UserService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -27,14 +30,28 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected $userService;
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param UserService $userService
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
+        $this->userService = $userService;
         $this->middleware('guest')->except('logout');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $user = $this->userService->auth($request);
+        if(is_array($user)) {
+            return ResponseHelper::responseDisplay(400, 'Bad request', $user);
+        } elseif($user === 'Unauthorized'){
+            return ResponseHelper::responseDisplay(400, 'Operation Failed', $user);
+        } else {
+            return ResponseHelper::responseDisplay(200, 'Operation successful', $user);
+        }
     }
 }

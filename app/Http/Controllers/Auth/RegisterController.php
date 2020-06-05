@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -34,7 +35,7 @@ class RegisterController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param UserService $userService
      */
     public function __construct()
     {
@@ -64,10 +65,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = $this->userService->create($request);
+        if ($user === 'saved') {
+            return ResponseHelper::responseDisplay(200, 'Registration Successful');
+        } else {
+            return ResponseHelper::responseDisplay(400, 'Operation Failed');
+        }
     }
 }

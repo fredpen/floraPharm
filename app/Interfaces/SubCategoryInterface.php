@@ -1,0 +1,24 @@
+<?php
+
+
+namespace App\Interfaces;
+
+
+interface UserInterface
+{
+   public function registerUser($request);
+
+   public function authUser($request);
+
+   public function saveAddress($request);
+
+   public function getAddressById();
+
+   public function getSingleAddressById($request);
+
+   public function updateUserAddressById($request, $id);
+
+   public function destroyAddress($request);
+
+   public function userDetail();
+}
