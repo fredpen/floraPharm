@@ -20,60 +20,63 @@ class CategoryRepository implements CategoryInterface
 
     public function create($request)
     {
-       return $this->category->create($request);
+        return $this->category->create($request);
     }
 
     public function edit($request)
     {
-       return $this->category->where('id', $request['id'])->update(['name' => $request['name']]);
+        return $this->category->where('id', $request['id'])->update(['name' => $request['name']]);
     }
 
     public function all()
     {
-       return $this->category ? $this->category->orderBy('updated_at', 'Desc')->get() : false;
+        return $this->category ? $this->category->orderBy('updated_at', 'Desc')->get() : false;
     }
 
-    public function allWithoutSub()
+    public function allWithoutSub($admin = false)
     {
-       return $this->category ? $this->category->orderBy('updated_at', 'Desc')->get() : false;
+        if ($admin) {
+            return $this->category ? $this->category->orderBy('updated_at', 'Desc')->get() : false;
+        }
+        return $this->category->where('status', 1) ? $this->category->where('status', 1)->orderBy('updated_at', 'Desc')->get() : false;
     }
 
     public function show($category_id)
     {
-       return $this->category->where('id', $category_id)->first();
+        return $this->category->where('id', $category_id)->first();
     }
 
     public function delete($categoryId)
     {
-       return $this->category->where('id', $categoryId)->delete();
+        return $this->category->where('id', $categoryId)->delete();
     }
 
     // sub categories
     public function createSub($category_id, $name)
     {
-       return $this->subCategory->create([
-           'category_id' => $category_id,
-           'name' => $name
-       ]);
+        return $this->subCategory->create([
+            'category_id' => $category_id,
+            'name' => $name
+        ]);
     }
 
     public function editSub($request)
     {
-       return $this->subCategory->where('id', $request['id'])->update(['name' => $request['name']]);
+        return $this->subCategory->where('id', $request['id'])->update(['name' => $request['name']]);
     }
 
     public function showSub($category_id)
     {
-       return $this->subCategory->where('id', $category_id)->with('category')->first();
+        return $this->subCategory->where('id', $category_id)->with('category')->first();
     }
 
     public function deleteSub($category_id)
     {
-       return $this->subCategory->where('id', $category_id)->delete();
+        return $this->subCategory->where('id', $category_id)->delete();
     }
 
     public function allSub()
     {
-       return $this->subCategory ? $this->subCategory->with('category')->orderBy('updated_at', 'Desc')->get() : false;
+        return $this->subCategory ? $this->subCategory->with('category')->orderBy('updated_at', 'Desc')->get() : false;
     }
 }

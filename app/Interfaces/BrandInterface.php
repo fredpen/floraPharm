@@ -9,12 +9,9 @@ interface BrandInterface
 
     public function edit($request);
 
-    public function all();
+    public function all($admin = false);
 
     public function show($brandId);
 
     public function delete($brandId);
-
-
-
 }

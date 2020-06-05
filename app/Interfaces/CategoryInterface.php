@@ -11,7 +11,7 @@ interface CategoryInterface
 
     public function all();
 
-    public function allWithoutSub();
+    public function allWithoutSub($admin = false);
 
     public function delete($categoryId);
 

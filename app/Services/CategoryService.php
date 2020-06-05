@@ -27,6 +27,12 @@ class CategoryService
         return $categories ? ResponseHelper::reply(true, $categories) : ResponseHelper::reply(false, "could not execute request");
     }
 
+    public function adminAll()
+    {
+        $categories = $this->categoryInterface->allWithoutSub(true);
+        return $categories ? ResponseHelper::reply(true, $categories) : ResponseHelper::reply(false, "could not execute request");
+    }
+
 
     public function show($categoryId)
     {
