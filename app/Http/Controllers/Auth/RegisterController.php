@@ -65,7 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = $this->userService->create($request);
+        $user = $this->userService->create($data);
         if ($user === 'saved') {
             return ResponseHelper::responseDisplay(200, 'Registration Successful');
         } else {
