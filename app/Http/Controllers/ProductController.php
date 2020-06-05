@@ -51,6 +51,15 @@ class ProductController extends Controller
         return ResponseHelper::success('Operation successful', $products['message']);
     }
 
+    public function adminAll()
+    {
+        $products = $this->productService->adminAll();
+        if (!$products['status']) {
+            return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
     public function active()
     {
         $products = $this->productService->active();
@@ -69,8 +78,6 @@ class ProductController extends Controller
         return ResponseHelper::success('Operation successful', $products['message']);
     }
 
-
-
     public function delete($productId)
     {
         $products = $this->productService->delete($productId);
@@ -83,6 +90,25 @@ class ProductController extends Controller
     public function brand($brandId)
     {
         $products = $this->productService->brand($brandId);
+        if (!$products['status']) {
+            return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
+    public function adminBrand($brandId)
+    {
+        $products = $this->productService->adminBrand($brandId);
+        if (!$products['status']) {
+            return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
+
+    public function adminCategory($categoryId)
+    {
+        $products = $this->productService->adminCategory($categoryId);
         if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }

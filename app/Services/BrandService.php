@@ -21,6 +21,12 @@ class BrandService
         return $categories ? ResponseHelper::reply(true, $categories) : ResponseHelper::reply(false, "could not execute request");
     }
 
+    public function adminAll()
+    {
+        $categories = $this->brandInterface->all(true);
+        return $categories ? ResponseHelper::reply(true, $categories) : ResponseHelper::reply(false, "could not execute request");
+    }
+
     public function delete($brandId)
     {
         $category = $this->brandInterface->delete($brandId);

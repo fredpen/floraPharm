@@ -37,13 +37,13 @@ class CartController extends Controller
 
     public function fetch()
     {
-        $cart = $this->cart->where('user_id', Auth::id())->with('product')->get();
+        $cart = $this->cart->where('user_id', Auth::id())->orderBy('updated_at', 'desc')->with('product')->get();
         return $cart->count() ? ResponseHelper::success('Operation successful', $cart) : ResponseHelper::success('Cart is empty', []);
     }
 
     public function all()
     {
-        $cart = $this->cart->with('product', 'user')->get();
+        $cart = $this->cart->with('product', 'user')->orderBy('updated_at', 'desc')->get();
         return $cart->count() ? ResponseHelper::success('Operation successful', $cart) : ResponseHelper::serverError('Cart is empty');
     }
 

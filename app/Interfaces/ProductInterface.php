@@ -10,7 +10,7 @@ interface ProductInterface
 
     public function edit($id, $request);
 
-    public function all();
+    public function all($admin = false);
 
     public function active();
 
@@ -22,9 +22,9 @@ interface ProductInterface
 
     public function delete($productId);
 
-    public function brand($brandId);
+    public function brand($brandId, $admin = false);
 
-    public function category($categoryId);
+    public function category($categoryId, $admin = false);
 
     public function subCategory($subCategoryId);
 

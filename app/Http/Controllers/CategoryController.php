@@ -60,6 +60,16 @@ class CategoryController extends Controller
         return ResponseHelper::success('Operation successful', $categories['message']);
     }
 
+    public function adminAll()
+    {
+        $categories = $this->categoryService->adminAll();
+        if (! $categories['status']) {
+            return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $categories['message']);
+    }
+
+
     public function allWithoutSub()
     {
         $categories = $this->categoryService->allWithoutSub();
