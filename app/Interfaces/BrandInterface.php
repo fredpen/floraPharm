@@ -3,7 +3,7 @@
 namespace App\Interfaces;
 
 
-interface CategoryInterface
+interface BrandInterface
 {
     public function create($request);
 
@@ -13,10 +13,4 @@ interface CategoryInterface
 
     public function show($categoryId);
 
-    // sub categories
-    public function createSub($category_id, $name);
-
-    public function editSub($request);
-
-    public function allSub();
 }

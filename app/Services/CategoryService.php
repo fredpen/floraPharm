@@ -60,7 +60,7 @@ class CategoryService
     private function validateEditRequest($request)
     {
         return Validator::make($request, [
-            'category_id' => "required|integer|exists:category",
+            'id' => "required|integer|exists:category",
             'name' => "required|string|unique:category"
         ]);
     }

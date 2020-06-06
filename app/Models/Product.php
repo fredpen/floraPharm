@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SubCategory extends Model
+class Product extends Model
 {
     protected $guarded = [];
 
-    protected $table = "sub_category";
+    protected $table = "product";
 
     public function category()
     {

@@ -14,6 +14,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('detail', 'UserAddressController@userDetail')->middleware('auth:api');
 });
 
+// category
 Route::group(['prefix' => 'category'], function () {
     Route::post('create', 'CategoryController@create')->middleware(['auth:api', 'isAdmin']);
     Route::post('edit', 'CategoryController@edit')->middleware(['auth:api', 'isAdmin']);
@@ -23,6 +24,7 @@ Route::group(['prefix' => 'category'], function () {
     Route::get('all-categories-with-sub-categories', 'CategoryController@categoriesWithSubCategories');
 });
 
+// subcategory
 Route::group(['prefix' => 'sub-category'], function () {
     Route::post('create', 'SubCategoryController@create')->middleware(['auth:api', 'isAdmin']);
     Route::post('edit', 'SubCategoryController@edit')->middleware(['auth:api', 'isAdmin']);
@@ -31,3 +33,19 @@ Route::group(['prefix' => 'sub-category'], function () {
     Route::get('all-sub-categories', 'SubCategoryController@all');
 });
 
+// products
+Route::group(['prefix' => 'product'], function () {
+    Route::post('create', 'ProductController@create')->middleware(['auth:api', 'isAdmin']);
+    Route::post('edit', 'ProductController@edit')->middleware(['auth:api', 'isAdmin']);
+    Route::get('delete', 'ProductController@delete')->middleware(['auth:api', 'isAdmin']);
+    Route::get('show', 'ProductController@show');
+});
+
+// brands
+Route::group(['prefix' => 'brands'], function () {
+    Route::post('create', 'SubCategoryController@create')->middleware(['auth:api', 'isAdmin']);
+    Route::post('edit', 'SubCategoryController@edit')->middleware(['auth:api', 'isAdmin']);
+    Route::get('delete', 'SubCategoryController@delete')->middleware(['auth:api', 'isAdmin']);
+    Route::get('show', 'SubCategoryController@show');
+    Route::get('all-sub-categories', 'SubCategoryController@all');
+});
