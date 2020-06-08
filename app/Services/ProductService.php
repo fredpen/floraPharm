@@ -2,35 +2,29 @@
 
 namespace App\Services;
 
-use App\Interfaces\CategoryInterface;
+use App\Interfaces\ProductInterface;
 use App\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Validator;
 
-class CategoryService
+class ProductService
 {
-    protected $categoryInterface;
+    protected $productInterface;
 
-    public function __construct(CategoryInterface $categoryInterface)
+    public function __construct(ProductInterface $productInterface)
     {
-        $this->categoryInterface = $categoryInterface;
+        $this->productInterface = $productInterface;
     }
 
     public function all()
     {
-        $categories = $this->categoryInterface->all();
+        $categories = $this->ProductInterface->all();
         return $categories ? ResponseHelper::reply(true, $categories) : ResponseHelper::reply(false, "could not execute request");
     }
 
     public function show($categoryId)
     {
-        $category = $this->categoryInterface->show($categoryId);
+        $category = $this->ProductInterface->show($categoryId);
         return $category ? ResponseHelper::reply(true, $category) : ResponseHelper::reply(false, "could not execute request");
-    }
-
-    public function delete($categoryId)
-    {
-        $category = $this->categoryInterface->delete($categoryId);
-        return $category ? ResponseHelper::reply(true, $category) : ResponseHelper::reply(false, "could not execute request - invalid category ID");
     }
 
     public function create($request)
@@ -40,7 +34,7 @@ class CategoryService
             return ResponseHelper::reply(false, $validate->errors()->first());
         }
 
-        $create = $this->categoryInterface->create($validate->valid());
+        $create = $this->ProductInterface->create($validate->valid());
         return $create ? ResponseHelper::reply(true) : ResponseHelper::reply(false, "could not execute request");
     }
 
@@ -51,7 +45,7 @@ class CategoryService
             return ResponseHelper::reply(false, $validate->errors()->first());
         }
 
-        $create = $this->categoryInterface->edit($validate->valid());
+        $create = $this->ProductInterface->edit($validate->valid());
         return $create ? ResponseHelper::reply(true) : ResponseHelper::reply(false, "could not execute request");
     }
 

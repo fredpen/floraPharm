@@ -2,35 +2,35 @@
 
 namespace App\Services;
 
-use App\Interfaces\CategoryInterface;
 use App\Helpers\ResponseHelper;
+use App\Interfaces\BrandInterface;
 use Illuminate\Support\Facades\Validator;
 
-class CategoryService
+class BrandService
 {
-    protected $categoryInterface;
+    protected $brandInterface;
 
-    public function __construct(CategoryInterface $categoryInterface)
+    public function __construct(BrandInterface $brandInterface)
     {
-        $this->categoryInterface = $categoryInterface;
+        $this->brandInterface = $brandInterface;
     }
 
     public function all()
     {
-        $categories = $this->categoryInterface->all();
+        $categories = $this->brandInterface->all();
         return $categories ? ResponseHelper::reply(true, $categories) : ResponseHelper::reply(false, "could not execute request");
     }
 
-    public function show($categoryId)
+    public function delete($brandId)
     {
-        $category = $this->categoryInterface->show($categoryId);
-        return $category ? ResponseHelper::reply(true, $category) : ResponseHelper::reply(false, "could not execute request");
+        $category = $this->brandInterface->delete($brandId);
+        return $category ? ResponseHelper::reply(true, $category) : ResponseHelper::reply(false, "could not execute request - invalid brand ID");
     }
 
-    public function delete($categoryId)
+    public function show($brandId)
     {
-        $category = $this->categoryInterface->delete($categoryId);
-        return $category ? ResponseHelper::reply(true, $category) : ResponseHelper::reply(false, "could not execute request - invalid category ID");
+        $category = $this->brandInterface->show($brandId);
+        return $category ? ResponseHelper::reply(true, $category) : ResponseHelper::reply(false, "could not execute request");
     }
 
     public function create($request)
@@ -40,7 +40,7 @@ class CategoryService
             return ResponseHelper::reply(false, $validate->errors()->first());
         }
 
-        $create = $this->categoryInterface->create($validate->valid());
+        $create = $this->brandInterface->create($request->only(['name', 'description']));
         return $create ? ResponseHelper::reply(true) : ResponseHelper::reply(false, "could not execute request");
     }
 
@@ -51,7 +51,7 @@ class CategoryService
             return ResponseHelper::reply(false, $validate->errors()->first());
         }
 
-        $create = $this->categoryInterface->edit($validate->valid());
+        $create = $this->brandInterface->edit($validate->valid());
         return $create ? ResponseHelper::reply(true) : ResponseHelper::reply(false, "could not execute request");
     }
 
@@ -59,15 +59,15 @@ class CategoryService
     private function validateCreateRequest($request)
     {
         return Validator::make($request, [
-            'name' => "required|string|unique:category"
+            'name' => "required|string|unique:brand"
         ]);
     }
 
     private function validateEditRequest($request)
     {
         return Validator::make($request, [
-            'id' => "required|integer|exists:category",
-            'name' => "required|string|unique:category"
+            'id' => "required|integer|exists:brand",
+            'name' => "required|string|unique:brand"
         ]);
     }
 
