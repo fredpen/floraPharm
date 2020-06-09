@@ -48,20 +48,27 @@ Route::group(['prefix' => 'brand'], function () {
 Route::group(['prefix' => 'product'], function () {
     Route::post('create', 'ProductController@create')->middleware(['auth:api', 'isAdmin']);
     Route::post('edit', 'ProductController@edit')->middleware(['auth:api', 'isAdmin']);
-    Route::get('delete', 'ProductController@delete')->middleware(['auth:api', 'isAdmin']);
-    Route::get('show', 'ProductController@show');
-    Route::get('all', 'BrandController@all');
+    Route::get('delete/{productId}', 'ProductController@delete')->middleware(['auth:api', 'isAdmin']);
+    Route::get('show/{productId}', 'ProductController@show');
+    Route::get('all', 'ProductController@all');
+    Route::get('active', 'ProductController@active');
 
     // relationships
-    Route::get('brand/{brandId}', 'BrandController@brand');
-    Route::get('category/{categoryId}', 'BrandController@category');
-    Route::get('sub-category/{subCategoryId}', 'BrandController@subCategory');
-    Route::get('best-sellers', 'BrandController@bestSellers');
-    Route::get('featured', 'BrandController@featured');
-    Route::get('hot', 'BrandController@hot');
-    Route::get('new', 'BrandController@new');
-    Route::get('landing_page', 'BrandController@landing_page');
-  
+    Route::get('brand/{brandId}', 'ProductController@brand');
+    Route::get('category/{categoryId}', 'ProductController@category');
+    Route::get('sub-category/{subCategoryId}', 'ProductController@subCategory');
+    Route::get('best-sellers', 'ProductController@bestSeller');
+    Route::get('featured', 'ProductController@featured');
+    Route::get('hot', 'ProductController@hot');
+    Route::get('new', 'ProductController@new');
+    Route::get('landing-page', 'ProductController@landingPage');
+});
 
+// wishlist
+Route::group( ['prefix' => 'wishlist', 'middleware' => 'auth:api'], function () {
+    Route::post('add', 'WishListController@add');
+    Route::get('remove/{productId}', 'WishListController@remove');
+    Route::get('clear', 'WishListController@clear');
+    Route::get('all', 'WishListController@all');
 });
 
