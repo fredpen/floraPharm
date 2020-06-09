@@ -22,4 +22,6 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('login', 'Auth\LoginController@authenticate');
     Route::resource('address', 'UserAddressController')->middleware('auth:api');
     Route::get('detail', 'UserAddressController@userDetail')->middleware('auth:api');
+    Route::post('forgot-password', 'Auth\ForgotPasswordController@forgotPassword');
+    Route::post('change-password', 'Auth\ForgotPasswordController@changePassword');
 });

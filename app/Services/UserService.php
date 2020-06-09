@@ -5,8 +5,11 @@ namespace App\Services;
 
 
 use App\Interfaces\UserInterface;
+use App\Mail\ForgetPassword;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class UserService
 {
@@ -96,5 +99,44 @@ class UserService
 
     public function getUserDetail(){
         return $this->userInterface->userDetail();
+    }
+
+    public function forgotUserPassword($request){
+        $validateData = Validator::make($request->all(), [
+            'email' => 'required|email|string',
+        ]);
+
+        if ($validateData->fails()) {
+            return $validateData->messages()->all();
+        }
+
+        $user = $this->userInterface->findUserByEmail($request);
+
+        if($user) {
+            $random = Str::random(80);
+            $res = $this->userInterface->saveForgotPassword($user, $random);
+            if ($res === 'saved') {
+                Mail::to('adedamola.elijah@gmail.com')->send(new ForgetPassword($user, $random));
+                return 'mail sent';
+            }
+        }
+        return 'false';
+    }
+
+    public function changeUserPassword($request) {
+        $validateData = Validator::make($request->all(), [
+            'email' => 'required|email|string',
+            'token' => 'required',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:6|same:password',
+        ]);
+
+        if ($validateData->fails()) {
+            return $validateData->messages()->all();
+        }
+
+        return $this->userInterface->findUserByToken($request);
+
+
     }
 }

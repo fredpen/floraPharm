@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\ForgetPasswordToken;
 use App\Interfaces\UserInterface;
 use App\User;
 use App\UserAddress;
@@ -137,5 +138,43 @@ class UserRepository implements UserInterface
     {
         // TODO: Implement userDetail() method.
         return $this->user->with('userAddress')->get();
+    }
+
+    public function findUserByEmail($request)
+    {
+        // TODO: Implement findUserByEmail() method.
+        return $this->user->where('email', $request->email)->first();
+    }
+
+    public function saveForgotPassword($user, $token)
+    {
+        // TODO: Implement saveForgotPassword() method.
+
+        $tokenData = new ForgetPasswordToken();
+        $tokenData->user_id = $user->id;
+        $tokenData->token = $token;
+        if ($tokenData->save()){
+            return 'saved';
+        }
+
+    }
+
+    public function updateUserToken($token) {
+       $token =  ForgetPasswordToken::where('token', $token)->first();
+       $token->status = 1;
+       $token->save();
+    }
+
+    public function findUserByToken($request)
+    {
+        // TODO: Implement findUserByToken() method.
+        $token =  ForgetPasswordToken::where('token', $request->token)->first();
+        $user = $token->user()->first();
+        $user->password = Hash::make($request->password);
+        if ($user->save()) {
+            $this->updateUserToken($request->token);
+         return 'password changed';
+        }
+
     }
 }
