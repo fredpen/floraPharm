@@ -24,8 +24,7 @@ class CreateProductTable extends Migration
             $table->longText('description')->nullable();
             $table->longText('dosage')->nullable();
             $table->float('price', 200, 2)->default(0.00);
-            $table->float('discount_in_whole_number', 200, 2)->default(0.00);
-            $table->float('discount_in_percentage', 200, 2)->default(0.00);
+            $table->float('discount_price', 200, 2)->default(0.00);
             $table->longText('image_url')->nullable();
             $table->boolean('status')->default(1);
             $table->boolean('featured')->default(0);
@@ -33,8 +32,8 @@ class CreateProductTable extends Migration
             $table->boolean('best_seller')->default(0);
             $table->boolean('new')->default(0);
             $table->boolean('landing_page')->default(0);
-           
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }
