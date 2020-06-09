@@ -116,7 +116,7 @@ class UserService
             $random = Str::random(80);
             $res = $this->userInterface->saveForgotPassword($user, $random);
             if ($res === 'saved') {
-                Mail::to('adedamola.elijah@gmail.com')->send(new ForgetPassword($user, $random));
+                Mail::to($user->email)->send(new ForgetPassword($user, $random));
                 return 'mail sent';
             }
         }

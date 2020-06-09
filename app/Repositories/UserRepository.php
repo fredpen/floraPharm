@@ -168,13 +168,17 @@ class UserRepository implements UserInterface
     public function findUserByToken($request)
     {
         // TODO: Implement findUserByToken() method.
-        $token =  ForgetPasswordToken::where('token', $request->token)->first();
-        $user = $token->user()->first();
-        $user->password = Hash::make($request->password);
-        if ($user->save()) {
-            $this->updateUserToken($request->token);
-         return 'password changed';
-        }
+        $token =  ForgetPasswordToken::where('token', $request->token)->where('status', 0)->first();
+       if ($token) {
+           $user = $token->user()->first();
+           $user->password = Hash::make($request->password);
+           if ($user->save()) {
+               $this->updateUserToken($request->token);
+               return 'password changed';
+           }
+       }
+
+       return 'token not usable';
 
     }
 }

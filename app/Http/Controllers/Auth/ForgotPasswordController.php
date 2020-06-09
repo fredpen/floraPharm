@@ -41,8 +41,12 @@ class ForgotPasswordController extends Controller
 
     public function changePassword(Request $request) {
         $password = $this->userService->changeUserPassword($request);
+
         if (is_array($password)) {
             return ResponseHelper::responseDisplay(400, 'Bad request', $password);
+        } else if ($password === 'token not usable') {
+            return ResponseHelper::responseDisplay(404, 'Token not found', $password);
+
         }
           return ResponseHelper::responseDisplay(200, 'Password changed', $password);
 
