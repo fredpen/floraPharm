@@ -21,4 +21,10 @@ interface UserInterface
    public function destroyAddress($request);
 
    public function userDetail();
+
+   public function findUserByEmail($request);
+
+   public function saveForgotPassword($user, $token);
+
+   public function findUserByToken($request);
 }
