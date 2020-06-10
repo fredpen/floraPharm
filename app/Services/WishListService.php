@@ -29,20 +29,20 @@ class WishListService
 
     public function remove($productId)
     {
-        $category = $this->wishListInterface->remove(Auth::id(), $productId);
-        return $category ? ResponseHelper::reply(true, $category) : ResponseHelper::reply(false, "could not execute request - invalid brand ID");
+        $wishList = $this->wishListInterface->remove(Auth::id(), $productId);
+        return $wishList ? ResponseHelper::reply(true, $wishList) : ResponseHelper::reply(false, "could not execute request - invalid brand ID");
     }
 
     public function clear()
     {
-        $category = $this->wishListInterface->clear(Auth::id());
-        return $category ? ResponseHelper::reply(true, $category) : ResponseHelper::reply(false, "could not execute request");
+        $wishList = $this->wishListInterface->clear(Auth::id());
+        return $wishList ? ResponseHelper::reply(true, $wishList) : ResponseHelper::reply(false, "could not execute request");
     }
 
     public function all()
     {
-        $create = $this->wishListInterface->all(Auth::id());
-        return $create ? ResponseHelper::reply(true) : ResponseHelper::reply(false, "could not execute request");
+        $wishList = $this->wishListInterface->all(Auth::id());
+        return $wishList ? ResponseHelper::reply(true, $wishList) : ResponseHelper::reply(false, "could not execute request");
     }
 
     private function validateCreateRequest($request)

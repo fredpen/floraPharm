@@ -18,24 +18,24 @@ class WishListController extends Controller
     public function add(Request $request)
     {
         $wishList = $this->wishListService->add($request);
-        return $wishList ? ResponseHelper::reply(true, $wishList) : ResponseHelper::reply(false, "could not execute request");
+        return $wishList ? ResponseHelper::success(true, $wishList['message']) : ResponseHelper::badRequest(false, "could not execute request");
     }
 
     public function remove($productId)
     {
         $wishList = $this->wishListService->remove($productId);
-        return $wishList ? ResponseHelper::reply(true, $wishList) : ResponseHelper::reply(false, "could not execute request");
+        return $wishList ? ResponseHelper::success(true, []) : ResponseHelper::badRequest(false, "could not execute request");
     }
 
     public function clear()
     {
         $wishList = $this->wishListService->clear();
-        return $wishList ? ResponseHelper::reply(true, $wishList) : ResponseHelper::reply(false, "could not execute request");
+        return $wishList ? ResponseHelper::success(true, []) : ResponseHelper::badRequest(false, "could not execute request");
     }
 
     public function all()
     {
         $wishList = $this->wishListService->all();
-        return $wishList ? ResponseHelper::reply(true, $wishList) : ResponseHelper::reply(false, "could not execute request");
+        return $wishList ? ResponseHelper::success(true, $wishList['message']) : ResponseHelper::badRequest(false, "could not execute request");
     }
 }
