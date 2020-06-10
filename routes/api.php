@@ -62,3 +62,11 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('landing-page', 'ProductController@landingPage');
 });
 
+// wishlist
+Route::group( ['prefix' => 'wishlist', 'middleware' => 'auth:api'], function () {
+    Route::post('add', 'WishListController@add');
+    Route::get('remove/{productId}', 'WishListController@remove');
+    Route::get('clear', 'WishListController@clear');
+    Route::get('all', 'WishListController@all');
+});
+
