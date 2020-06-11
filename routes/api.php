@@ -25,6 +25,11 @@ Route::group(['prefix' => 'category'], function () {
     Route::get('all-categories', 'CategoryController@all');
 });
 
+Route::group(['prefix' => 'order'], function(){
+   Route::post('make-order', 'OrderController@makePayment')->middleware('auth:api');
+   Route::post('verify-transaction', 'OrderController@verifyTransaction')->middleware('auth:api');
+});
+
 // subcategory
 Route::group(['prefix' => 'sub-category'], function () {
     Route::post('create', 'SubCategoryController@create')->middleware(['auth:api', 'isAdmin']);
@@ -54,15 +59,15 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('active', 'ProductController@active');
 
     // relationships
-    Route::get('brand/{brandId}', 'ProductController@brand');
-    Route::get('category/{categoryId}', 'ProductController@category');
-    Route::get('sub-category/{subCategoryId}', 'ProductController@subCategory');
-    Route::get('best-sellers', 'ProductController@bestSeller');
-    Route::get('featured', 'ProductController@featured');
-    Route::get('hot', 'ProductController@hot');
-    Route::get('new', 'ProductController@new');
-    Route::get('landing-page', 'ProductController@landingPage');
-});
+    Route::get('brand/{brandId}', 'BrandController@brand');
+    Route::get('category/{categoryId}', 'BrandController@category');
+    Route::get('sub-category/{subCategoryId}', 'BrandController@subCategory');
+    Route::get('best-sellers', 'BrandController@bestSellers');
+    Route::get('featured', 'BrandController@featured');
+    Route::get('hot', 'BrandController@hot');
+    Route::get('new', 'BrandController@new');
+    Route::get('landing_page', 'BrandController@landing_page');
+
 
 // wishlist
 Route::group( ['prefix' => 'wishlist', 'middleware' => 'auth:api'], function () {
