@@ -64,8 +64,8 @@ class OrderRepository implements OrderInterface
 
         $this->order_detail = new OrderDetail ();
 
-        if ($product->discount_in_whole_number !== 0.00 || $product->discount_in_whole_number) {
-              if ( (double) $request['amount'] === (double) $product->discount_in_whole_number) {
+        if ($product->discount_price !== 0.00 || $product->discount_price) {
+              if ( (double) $request['amount'] === (double) $product->discount_price) {
                    $this->saveOrder($product, $request);
 
               }
@@ -110,5 +110,17 @@ class OrderRepository implements OrderInterface
             return 'successful';
         }
 
+    }
+
+    public function getOrder()
+    {
+        // TODO: Implement getOrder() method.
+        return $this->order->where('user_id', Auth::id())->paginate(10);
+    }
+
+    public function allOrdersForAdmin()
+    {
+        // TODO: Implement allOrdersForAdmin() method.
+        return $this->order->paginate(10);
     }
 }
