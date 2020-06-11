@@ -7,7 +7,7 @@ namespace App\Repositories;
 use App\ForgetPasswordToken;
 use App\Interfaces\UserInterface;
 use App\User;
-use App\UserAddress;
+use App\Models\UserAddress;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
