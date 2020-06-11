@@ -45,4 +45,9 @@ class OrderController extends Controller
 
     }
 
+
+    public function getUserOrder(){
+        return 'hello world';
+    }
+
 }
