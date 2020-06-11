@@ -25,6 +25,11 @@ Route::group(['prefix' => 'category'], function () {
     Route::get('all-categories', 'CategoryController@all');
 });
 
+Route::group(['prefix' => 'order'], function(){
+   Route::post('make-order', 'OrderController@makePayment')->middleware('auth:api');
+   Route::post('verify-transaction', 'OrderController@verifyTransaction')->middleware('auth:api');
+});
+
 // subcategory
 Route::group(['prefix' => 'sub-category'], function () {
     Route::post('create', 'SubCategoryController@create')->middleware(['auth:api', 'isAdmin']);
@@ -61,7 +66,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('hot', 'BrandController@hot');
     Route::get('new', 'BrandController@new');
     Route::get('landing_page', 'BrandController@landing_page');
-  
+
 
 });
 
