@@ -45,4 +45,23 @@ class OrderController extends Controller
 
     }
 
+
+    public function getUserOrder(){
+        $orders = $this->orderService->getOrderByUserId();
+
+        if ($orders) {
+            return ResponseHelper::responseDisplay(200, 'Operation successful', $orders);
+        }
+        return ResponseHelper::responseDisplay(400, 'Operation failed', $orders);
+
+    }
+
+    public function allOrder(){
+        $orders = $this->orderService->allOrder();
+        if ($orders) {
+            return ResponseHelper::responseDisplay(200, 'Operation successful', $orders);
+        }
+        return ResponseHelper::responseDisplay(400, 'Operation failed', $orders);
+    }
+
 }

@@ -111,4 +111,12 @@ class OrderService
             return $this->orderInterface->verifyTransaction($tranx);
         }
     }
+
+    public function getOrderByUserId(){
+        return $this->orderInterface->getOrder();
+    }
+
+    public function allOrder(){
+        return $this->orderInterface->allOrdersForAdmin();
+    }
 }
