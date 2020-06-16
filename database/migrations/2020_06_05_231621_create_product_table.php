@@ -32,7 +32,6 @@ class CreateProductTable extends Migration
             $table->boolean('best_seller')->default(0);
             $table->boolean('new')->default(0);
             $table->boolean('landing_page')->default(0);
-
             $table->softDeletes();
             $table->timestamps();
         });

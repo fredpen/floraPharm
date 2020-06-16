@@ -27,7 +27,7 @@ class BrandRespository implements BrandInterface
 
     public function all()
     {
-       return $this->brand ? $this->brand->paginate(20) : false;
+       return $this->brand ? $this->brand->get() : false;
     }
 
     public function show($brandId)

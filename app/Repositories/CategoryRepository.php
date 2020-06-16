@@ -30,7 +30,7 @@ class CategoryRepository implements CategoryInterface
 
     public function all()
     {
-       return $this->category ? $this->category->with('subCategory')->paginate(20) : false;
+       return $this->category ? $this->category->with('subCategory')->get() : false;
     }
 
     public function show($category_id)
@@ -69,6 +69,6 @@ class CategoryRepository implements CategoryInterface
 
     public function allSub()
     {
-       return $this->subCategory ? $this->subCategory->paginate(20) : false;
+       return $this->subCategory ? $this->subCategory->get() : false;
     }
 }

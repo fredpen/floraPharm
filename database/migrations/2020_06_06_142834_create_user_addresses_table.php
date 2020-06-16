@@ -20,7 +20,7 @@ class CreateUserAddressesTable extends Migration
             $table->string('city');
             $table->string('state')->nullable();
             $table->string('country');
-            $table->integer('post_code')->nullable();
+            $table->string('post_code')->nullable();
             $table->boolean('default_status')->default(0);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

@@ -12,4 +12,8 @@ interface OrderInterface
 
     public function verifyTransaction($reference);
 
+    public function getOrder();
+
+    public function allOrdersForAdmin();
+
 }
