@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Services\UserService;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,28 +31,26 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-    protected $userService;
 
     /**
      * Create a new controller instance.
      *
      * @param UserService $userService
      */
-    public function __construct(UserService $userService)
+    public function __construct()
     {
-        $this->userService = $userService;
         $this->middleware('guest');
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param $request
+     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator($request)
+    protected function validator(array $data)
     {
-        return Validator::make($request, [
+        return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -64,10 +60,10 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param Request $request
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @param  array  $data
+     * @return \App\User
      */
-    protected function create(Request $request)
+    protected function create(array $data)
     {
         $user = $this->userService->create($request);
         if ($user === 'saved') {
