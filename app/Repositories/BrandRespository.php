@@ -27,7 +27,7 @@ class BrandRespository implements BrandInterface
 
     public function all()
     {
-       return $this->brand ? $this->brand->get() : false;
+       return $this->brand ? $this->brand->orderBy('updated_at', 'Desc')->get() : false;
     }
 
     public function show($brandId)
