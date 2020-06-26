@@ -116,6 +116,11 @@ class OrderService
         return $this->orderInterface->getOrder();
     }
 
+     public function getSingleOrder($orderId)
+    {
+         return $this->orderInterface->getSingleOrder($orderId);
+    }
+
     public function allOrder(){
         return $this->orderInterface->allOrdersForAdmin();
     }

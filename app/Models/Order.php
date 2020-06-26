@@ -14,4 +14,11 @@ class Order extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
+
+
+    public function address() {
+        return $this->belongsTo(UserAddress::Class);
+    }
+
+
 }

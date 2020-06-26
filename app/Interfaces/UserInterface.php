@@ -27,4 +27,6 @@ interface UserInterface
    public function saveForgotPassword($user, $token);
 
    public function findUserByToken($request);
+
+   public function allUsers();
 }

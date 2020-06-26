@@ -121,6 +121,13 @@ class OrderRepository implements OrderInterface
     public function allOrdersForAdmin()
     {
         // TODO: Implement allOrdersForAdmin() method.
-        return $this->order->paginate(10);
+        return $this->order->with('address', 'user')->paginate(20);
     }
+
+     public function getSingleOrder($orderId)
+    {
+        return $this->order->with('orderDetail.product', 'address', 'user')->where('id', $orderId)->first();
+    }
+
+
 }
