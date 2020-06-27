@@ -111,24 +111,18 @@ class ProductService
 
 
 
-
-
-
-
-
-
     private function validateCreateRequest($request)
     {
         return Validator::make($request, [
             'category_id' => "required|integer|exists:category,id",
-            'sub_category_id' => "required|integer|exists:sub_category,id",
+            'sub_category_id' => "integer|exists:sub_category,id",
             'brand_id' => "required|integer|exists:brand,id",
             'name' => "required|string|min:5",
             'quantity' => "required|integer|min:0",
             'description' => "required|string|min:10",
-            'dosage' => "required|string",
+            'dosage' => "string",
             'price' => "required|numeric|min:1",
-            'discount_price' => "required|numeric|min:1",
+            'discount_price' => "string|min:1",
             'image_url' => "required|string",
             'status' => "required|boolean",
             'hot' => "required|boolean",

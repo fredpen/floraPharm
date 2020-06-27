@@ -11,8 +11,10 @@ class OrderTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\User', 30)->create()->each(function($u){
-            $u->userAddress()->save(factory(\App\Models\UserAddress::class)->make());
-         });
+        factory(\App\Models\Order::class, 30)->create();
+
+       factory(\App\Models\OrderDetail::class, 30)->create();
+
+       factory(\App\Models\WishList::class, 30)->create();
     }
 }

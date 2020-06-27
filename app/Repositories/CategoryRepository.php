@@ -30,7 +30,7 @@ class CategoryRepository implements CategoryInterface
 
     public function all()
     {
-       return $this->category ? $this->category->with('subCategory')->orderBy('updated_at', 'Desc')->get() : false;
+       return $this->category ? $this->category->orderBy('updated_at', 'Desc')->get() : false;
     }
 
     public function allWithoutSub()
@@ -40,7 +40,7 @@ class CategoryRepository implements CategoryInterface
 
     public function show($category_id)
     {
-       return $this->category->where('id', $category_id)->with('subCategory')->first();
+       return $this->category->where('id', $category_id)->first();
     }
 
     public function delete($categoryId)
