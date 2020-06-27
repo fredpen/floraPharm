@@ -22,8 +22,8 @@ class CreateOrdersTable extends Migration
             $table->string('promo_code')->nullable();
             $table->unsignedBigInteger('address_id');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('address_id')->references('id')->on('user_addresses')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('address_id')->references('id')->on('user_addresses')->onDelete('cascade');
             $table->timestamps();
         });
     }
