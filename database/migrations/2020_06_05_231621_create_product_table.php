@@ -16,7 +16,7 @@ class CreateProductTable extends Migration
         Schema::create('product', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('sub_category_id');
+            $table->unsignedBigInteger('sub_category_id')->nullable();
             $table->unsignedBigInteger('brand_id');
             $table->string('name');
             $table->string('sku')->default(time());
@@ -24,7 +24,7 @@ class CreateProductTable extends Migration
             $table->longText('description')->nullable();
             $table->longText('dosage')->nullable();
             $table->float('price', 200, 2)->default(0.00);
-            $table->float('discount_price', 200, 2)->default(0.00);
+            $table->float('discount_price', 200, 2)->default(0.00)->nullable();
             $table->longText('image_url')->nullable();
             $table->boolean('status')->default(1);
             $table->boolean('featured')->default(0);

@@ -181,4 +181,11 @@ class UserRepository implements UserInterface
        return 'token not usable';
 
     }
+
+    public function allUsers()
+    {
+        $users =  User::where('type', 2);
+        return $users->count() ? $users->with(['userAddress', 'order'])->orderby('created_at', 'Desc')->paginate(20) : false;
+    }
 }
+

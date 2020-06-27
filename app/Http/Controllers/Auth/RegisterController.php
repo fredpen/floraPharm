@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Services\UserService;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -31,26 +31,28 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected $userService;
 
     /**
      * Create a new controller instance.
      *
      * @param UserService $userService
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
+        $this->userService = $userService;
         $this->middleware('guest');
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param $request
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator($request)
     {
-        return Validator::make($data, [
+        return Validator::make($request, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -60,10 +62,10 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
         $user = $this->userService->create($request);
         if ($user === 'saved') {
@@ -72,4 +74,16 @@ class RegisterController extends Controller
             return ResponseHelper::responseDisplay(400, 'Operation Failed');
         }
     }
+
+    public function allUsers()
+    {
+        $users = $this->userService->allUsers();
+        if ($users) {
+            return ResponseHelper::success('success', $users);
+        } else {
+            return ResponseHelper::responseDisplay(400, 'Operation Failed');
+        }
+    }
 }
+
+

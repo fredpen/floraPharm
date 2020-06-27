@@ -16,4 +16,6 @@ interface OrderInterface
 
     public function allOrdersForAdmin();
 
+     public function getSingleOrder($orderId);
+
 }
