@@ -37,7 +37,7 @@ $factory->define(\App\Models\UserAddress::class, function(Faker $faker) {
         'city' => $faker->city,
         'state' => $faker->state,
         'country' => $faker->country,
-        'post_code' => $faker->postcode,
+        'post_code' => $faker->numberBetween(1, 100),
          'default_status' => 0
    ];
 });

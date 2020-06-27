@@ -28,6 +28,12 @@ class Product extends Model
         return $this->belongsTo(SubCategory::class);
     }
 
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
+
 
 
 

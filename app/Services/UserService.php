@@ -139,4 +139,10 @@ class UserService
 
 
     }
+
+    public function allUsers()
+    {
+        return $this->userInterface->allUsers();
+
+    }
 }

@@ -9,6 +9,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'user'], function () {
     Route::post('register', 'Auth\RegisterController@create');
+    Route::get('all', 'Auth\RegisterController@allUsers');
     Route::post('login', 'Auth\LoginController@authenticate');
     Route::resource('address', 'UserAddressController')->middleware('auth:api');
     Route::get('detail', 'UserAddressController@userDetail')->middleware('auth:api');
@@ -30,6 +31,7 @@ Route::group(['prefix' => 'order'], function(){
    Route::post('make-order', 'OrderController@makePayment')->middleware('auth:api');
    Route::post('verify-transaction', 'OrderController@verifyTransaction')->middleware('auth:api');
    Route::get('', 'OrderController@getUserOrder')->middleware('auth:api');
+   Route::get('show/{orderId}', 'OrderController@getSingleOrder')->middleware(['auth:api', 'isAdmin']);
    Route::get('all', 'OrderController@allOrder')->middleware(['auth:api', 'isAdmin']);
 });
 
