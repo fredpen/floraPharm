@@ -122,7 +122,7 @@ class ProductService
             'description' => "required|string|min:10",
             'dosage' => "string",
             'price' => "required|numeric|min:1",
-            'discount_price' => "string|min:1",
+            'discount_price' => "numeric|min:1",
             'image_url' => "required|string",
             'status' => "required|boolean",
             'hot' => "required|boolean",
