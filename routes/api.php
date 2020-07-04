@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('user', 'Auth\RegisterController@getUser')->middleware('auth:api');
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('user', 'Auth\RegisterController@getUser');
+});
 
 Route::group(['prefix' => 'user'], function () {
     Route::post('register', 'Auth\RegisterController@create');
