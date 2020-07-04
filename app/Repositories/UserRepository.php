@@ -43,10 +43,7 @@ class UserRepository implements UserInterface
         $user = Auth::user();
         if ($user->status) {
             $tokenResult = $user->createToken('Personal Access Token');
-
-
             $token = $tokenResult->accessToken;
-
             return response()->json([
                 'user' => $user,
                 'access_token' => $token,
