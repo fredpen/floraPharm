@@ -20,10 +20,12 @@ class CreateOrdersTable extends Migration
             $table->boolean('payment_status')->default(0);
             $table->string('reference_no')->nullable()->unique();
             $table->string('promo_code')->nullable();
-            $table->unsignedBigInteger('address_id');
-            $table->unsignedBigInteger('user_id');
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            // $table->foreign('address_id')->references('id')->on('user_addresses')->onDelete('cascade');
+            $table->unsignedBigInteger('address_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->enum('delivery_type', [1, 2]);
+            $table->json('address')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('address_id')->references('id')->on('user_addresses')->onDelete('cascade');
             $table->timestamps();
         });
     }

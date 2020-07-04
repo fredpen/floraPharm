@@ -64,14 +64,17 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function create(Request $request)
     {
         $user = $this->userService->create($request);
         if ($user === 'saved') {
             return ResponseHelper::responseDisplay(200, 'Registration Successful');
-        } else {
+        } else if(is_array($user)) {
+            return ResponseHelper::responseDisplay(400, 'Operation Failed', $user);
+        }
+        else {
             return ResponseHelper::responseDisplay(400, 'Operation Failed');
         }
     }

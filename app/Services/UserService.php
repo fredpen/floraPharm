@@ -23,7 +23,7 @@ class UserService
     public function create($request)
     {
         $validateData = Validator::make($request->all(), [
-            'email' => 'required|email|string',
+            'email' => 'required|email|string|unique:users',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'phone_number' => 'required|string|max:20|unique:users',
