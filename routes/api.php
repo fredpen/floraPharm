@@ -69,7 +69,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('featured', 'ProductController@featured');
     Route::get('hot', 'ProductController@hot');
     Route::get('new', 'ProductController@new');
-    Route::get('landing_page', 'ProductController@landing_page');
+    Route::get('landing_page', 'ProductController@landingPage');
 });
 
 // wishlist

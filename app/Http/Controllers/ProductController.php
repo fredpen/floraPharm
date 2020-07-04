@@ -114,7 +114,7 @@ class ProductController extends Controller
         return ResponseHelper::success('Operation successful', $products['message']);
     }
 
-    public function bestSeller()
+    public function bestSellers()
     {
         $products = $this->productService->bestSeller();
         if (! $products['status']) {
