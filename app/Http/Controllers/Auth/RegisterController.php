@@ -9,6 +9,7 @@ use App\Services\UserService;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -41,7 +42,7 @@ class RegisterController extends Controller
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-        $this->middleware('guest');
+        $this->middleware('guest')->except('getUser');
     }
 
     /**
@@ -83,6 +84,11 @@ class RegisterController extends Controller
         } else {
             return ResponseHelper::responseDisplay(400, 'Operation Failed');
         }
+    }
+
+    public function getUser(Request $request)
+    {
+        return Auth::user();
     }
 }
 
