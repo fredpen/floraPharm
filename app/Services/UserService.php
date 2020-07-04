@@ -20,7 +20,8 @@ class UserService
         $this->userInterface = $userInterface;
     }
 
-    public function create($request){
+    public function create($request)
+    {
         $validateData = Validator::make($request->all(), [
             'email' => 'required|email|string|unique:users',
             'first_name' => 'required|string',
@@ -33,11 +34,11 @@ class UserService
         if ($validateData->fails()) {
             return $validateData->messages()->all();
         }
-       return $this->userInterface->registerUser($request);
+        return $this->userInterface->registerUser($request);
     }
 
-    public function auth($request) {
-
+    public function auth($request)
+    {
         $validateData = Validator::make($request->all(), [
             'email' => 'required|email|string',
             'password' => 'required|string|min:6',
@@ -52,11 +53,10 @@ class UserService
         } else {
             return 'Unauthorized';
         }
-
-
     }
 
-    public function saveAddress($request){
+    public function saveAddress($request)
+    {
         $validateData = $this->validateRequestData($request);
 
         if ($validateData->fails()) {
@@ -65,11 +65,13 @@ class UserService
         return $this->userInterface->saveAddress($request);
     }
 
-    public function getAddress(){
+    public function getAddress()
+    {
         return $this->userInterface->getAddressById();
     }
 
-    public function validateRequestData($request) {
+    public function validateRequestData($request)
+    {
         return Validator::make($request->all(), [
             'address' => 'required|string',
             'city' => 'required|string',
@@ -78,11 +80,13 @@ class UserService
         ]);
     }
 
-    public function getAddressById($request){
+    public function getAddressById($request)
+    {
         return $this->userInterface->getSingleAddressById($request);
     }
 
-    public function updateAddress($request, $userAddress){
+    public function updateAddress($request, $userAddress)
+    {
 
         $validateData = $this->validateRequestData($request);
 
@@ -93,15 +97,18 @@ class UserService
         return  $this->userInterface->updateUserAddressById($request, $userAddress);
     }
 
-    public function deleteAddress($request){
+    public function deleteAddress($request)
+    {
         return $this->userInterface->destroyAddress($request);
     }
 
-    public function getUserDetail(){
+    public function getUserDetail()
+    {
         return $this->userInterface->userDetail();
     }
 
-    public function forgotUserPassword($request){
+    public function forgotUserPassword($request)
+    {
         $validateData = Validator::make($request->all(), [
             'email' => 'required|email|string',
         ]);
@@ -112,7 +119,7 @@ class UserService
 
         $user = $this->userInterface->findUserByEmail($request);
 
-        if($user) {
+        if ($user) {
             $random = Str::random(80);
             $res = $this->userInterface->saveForgotPassword($user, $random);
             if ($res === 'saved') {
@@ -123,7 +130,8 @@ class UserService
         return 'false';
     }
 
-    public function changeUserPassword($request) {
+    public function changeUserPassword($request)
+    {
         $validateData = Validator::make($request->all(), [
             'email' => 'required|email|string',
             'token' => 'required',
@@ -136,13 +144,10 @@ class UserService
         }
 
         return $this->userInterface->findUserByToken($request);
-
-
     }
 
     public function allUsers()
     {
         return $this->userInterface->allUsers();
-
     }
 }
