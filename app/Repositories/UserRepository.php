@@ -43,8 +43,6 @@ class UserRepository implements UserInterface
         $user = Auth::user();
         if ($user->status) {
             $tokenResult = $user->createToken('Personal Access Token');
-
-
             $token = $tokenResult->accessToken;
 
             return response()->json([
@@ -71,10 +69,11 @@ class UserRepository implements UserInterface
                 }
             }
         }
-            return $this->saveUserAddress($request, 'create', null);
+        return $this->saveUserAddress($request, 'create', null);
     }
 
-    public function saveUserAddress($request, $type, $id) {
+    public function saveUserAddress($request, $type, $id)
+    {
 
 
         if ($type === 'create') {
@@ -120,7 +119,6 @@ class UserRepository implements UserInterface
             }
         }
         return $this->saveUserAddress($request, 'update', $id);
-
     }
 
     public function destroyAddress($request)
@@ -153,33 +151,32 @@ class UserRepository implements UserInterface
         $tokenData = new ForgetPasswordToken();
         $tokenData->user_id = $user->id;
         $tokenData->token = $token;
-        if ($tokenData->save()){
+        if ($tokenData->save()) {
             return 'saved';
         }
-
     }
 
-    public function updateUserToken($token) {
-       $token =  ForgetPasswordToken::where('token', $token)->first();
-       $token->status = 1;
-       $token->save();
+    public function updateUserToken($token)
+    {
+        $token =  ForgetPasswordToken::where('token', $token)->first();
+        $token->status = 1;
+        $token->save();
     }
 
     public function findUserByToken($request)
     {
         // TODO: Implement findUserByToken() method.
         $token =  ForgetPasswordToken::where('token', $request->token)->where('status', 0)->first();
-       if ($token) {
-           $user = $token->user()->first();
-           $user->password = Hash::make($request->password);
-           if ($user->save()) {
-               $this->updateUserToken($request->token);
-               return 'password changed';
-           }
-       }
+        if ($token) {
+            $user = $token->user()->first();
+            $user->password = Hash::make($request->password);
+            if ($user->save()) {
+                $this->updateUserToken($request->token);
+                return 'password changed';
+            }
+        }
 
-       return 'token not usable';
-
+        return 'token not usable';
     }
 
     public function allUsers()
@@ -188,4 +185,3 @@ class UserRepository implements UserInterface
         return $users->count() ? $users->with(['userAddress', 'order'])->orderby('created_at', 'Desc')->paginate(20) : false;
     }
 }
-
