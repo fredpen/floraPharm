@@ -13,15 +13,15 @@ class ProductSeeder extends Seeder
     public function run()
     {
         //
-        factory('App\Models\Category', 30)->create()->each(function ($sub) {
-            $sub->subCategory()->save(factory(\App\Models\SubCategory::class)->make());
-        });
+        // factory('App\Models\Category', 30)->create()->each(function ($sub) {
+        //     $sub->subCategory()->save(factory(\App\Models\SubCategory::class)->make());
+        // });
 
-        factory(\App\Models\Brand::class, 30)->create();
+        // factory(\App\Models\Brand::class, 30)->create();
 
        factory(\App\Models\Product::class, 30)->create();
 
-       
+
 
 
 
