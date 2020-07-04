@@ -20,5 +20,9 @@ class Order extends Model
         return $this->belongsTo(UserAddress::class);
     }
 
+    public function deliveryLocation() {
+        return $this->belongsTo('App\Models\DeliveryLocation');
+    }
+
 
 }
