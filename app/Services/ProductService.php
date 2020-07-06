@@ -15,6 +15,12 @@ class ProductService
         $this->productInterface = $productInterface;
     }
 
+    public function homePage()
+    {
+        $product = $this->productInterface->homePage();
+        return $product ? ResponseHelper::reply(true, $product) : ResponseHelper::reply(false, "could not execute request");
+    }
+
     public function create($request)
     {
         $validate = $this->validateCreateRequest($request->all());

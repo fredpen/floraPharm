@@ -74,6 +74,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('active', 'ProductController@active');
 
     // relationships
+    Route::get('home-page', 'ProductController@homePage');
     Route::get('brand/{brandId}', 'ProductController@brand');
     Route::get('category/{categoryId}', 'ProductController@category');
     Route::get('sub-category/{subCategoryId}', 'ProductController@subCategory');

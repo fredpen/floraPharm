@@ -33,6 +33,15 @@ class ProductController extends Controller
         return ResponseHelper::success('Operation successful');
     }
 
+    public function homePage()
+    {
+        $products = $this->productService->homePage();
+        if (! $products['status']) {
+            return ResponseHelper::badRequest($products['message']);
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
     public function all()
     {
         $products = $this->productService->all();
