@@ -26,7 +26,7 @@ class OrderController extends Controller
                 return ResponseHelper::responseDisplay(400, 'Operation failed', $transaction);
             } else if ($transaction['status']) {
 
-                return ResponseHelper::responseDisplay(200, 'Operation successful', $transaction);
+                return ResponseHelper::responseDisplay(200, 'Operation successful', $transaction['data']);
             }
             return ResponseHelper::responseDisplay(400, 'Operation failed', $transaction);
         }
