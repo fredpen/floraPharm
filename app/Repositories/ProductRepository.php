@@ -25,9 +25,11 @@ class ProductRepository implements ProductInterface
        return $this->product->find($id)->update($request);
     }
 
+
+
     public function all()
     {
-       return $this->product ? $this->product->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : false;
+       return $this->product ? $this->product->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
     }
 
     public function active()
@@ -48,49 +50,65 @@ class ProductRepository implements ProductInterface
     public function brand($brandId)
     {
         $products = $this->product->where('brand_id', $brandId);
-        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : false;
+        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
     }
 
     public function category($categoryId)
     {
         $products = $this->product->where('category_id', $categoryId);
-        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : false;
+        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
     }
 
     public function subCategory($subCategoryId)
     {
         $products = $this->product->where('sub_category_id', $subCategoryId);
-        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : false;
+        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
     }
 
     public function featured()
     {
         $products = $this->product->where('featured', 1);
-        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : false;
+        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
     }
 
     public function hot()
     {
         $products = $this->product->where('hot', 1);
-        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : false;
+        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
+    }
+
+    public function homePage()
+    {
+        $products = [];
+        // $products['bestSeller'] = $this->fetchWithLimit('best_seller');
+        $products['new'] = $this->fetchWithLimit('new');
+        $products['landingPage'] = $this->fetchWithLimit('landing_page');
+        $products['hot'] = $this->fetchWithLimit('hot');
+        $products['featured'] = $this->fetchWithLimit('featured');
+        return $products;
+    }
+
+    private function fetchWithLimit($queryString, $limit = 10)
+    {
+        return $this->product->where([ $queryString => 1, 'status' => 1])->limit($limit)->get();
     }
 
     public function bestSeller()
     {
         $products = $this->product->where('best_seller', 1);
-        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : false;
+        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
     }
 
     public function new()
     {
         $products = $this->product->where('new', 1);
-        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : false;
+        return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
     }
 
     public function landingPage()
     {
         $products = $this->product->where('landing_page', 1);
-        return $products->count() ? $products->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : false;
+        return $products->count() ? $products->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
     }
 
 

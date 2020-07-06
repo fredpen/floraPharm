@@ -32,13 +32,13 @@ class CartController extends Controller
     public function clear()
     {
         $clear = $this->cart->where('user_id', Auth::id())->delete();
-        return $clear ? ResponseHelper::success('Operation successful') : ResponseHelper::serverError('Could not clear cart');
+        return ResponseHelper::success('Operation successful');
     }
 
     public function fetch()
     {
         $cart = $this->cart->where('user_id', Auth::id())->with('product')->get();
-        return $cart->count() ? ResponseHelper::success('Operation successful', $cart) : ResponseHelper::serverError('Cart is empty');
+        return $cart->count() ? ResponseHelper::success('Operation successful', $cart) : ResponseHelper::success('Cart is empty', []);
     }
 
     public function all()
