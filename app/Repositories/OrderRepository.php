@@ -35,6 +35,8 @@ class OrderRepository implements OrderInterface
         $this->order->order_num = $this->random_number;
         $this->order->promo_code = $request->promoCode;
         $this->order->address_id = $request->addressId;
+        $this->order->address = $request->address;
+        $this->order->delivery_location_id = $request->delivery_location_id;
         $this->order->user_id = Auth::id();
         foreach ($request->orders as $re) {
            $product = Product::where('id', $re['productId'])->first();

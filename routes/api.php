@@ -43,6 +43,14 @@ Route::group(['prefix' => 'sub-category'], function () {
     Route::get('all-sub-categories', 'SubCategoryController@all');
 });
 
+//delivery location
+Route::group(['prefix' => 'delivery-location'], function() {
+   Route::post('add', 'DeliveryLocationController@addLocation')->middleware(['auth:api', 'isAdmin']);
+   Route::post('update/{id}', 'DeliveryLocationController@updateLocation')->middleware(['auth:api', 'isAdmin']);
+   Route::get('delete/{id}', 'DeliveryLocationController@deleteLocation')->middleware(['auth:api', 'isAdmin']);
+   Route::get('/', 'DeliveryLocationController@locations');
+});
+
 
 // brands
 Route::group(['prefix' => 'brand'], function () {
@@ -52,6 +60,7 @@ Route::group(['prefix' => 'brand'], function () {
     Route::get('show/{brandId}', 'BrandController@show');
     Route::get('all', 'BrandController@all');
 });
+
 
 // products
 Route::group(['prefix' => 'product'], function () {
