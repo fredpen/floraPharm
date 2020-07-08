@@ -36,7 +36,7 @@ class OrderRepository implements OrderInterface
         $this->order->promo_code = $request->promoCode;
         $this->order->address_id = $request->addressId;
         $this->order->delivery_type = $request->delivery_type;
-        $this->order->address = json_encode($request->address);
+        $this->order->user_detail = $request->user_detail;
         $this->order->delivery_location_id = $request->delivery_location_id;
         $this->order->user_id = Auth::id();
         foreach ($request->orders as $re) {
