@@ -19,10 +19,10 @@ class OrderController extends Controller
 
     public function makePayment(Request $request)
     {
-        $transaction = $this->orderService->initializePayment($request);
+         $transaction = $this->orderService->initializePayment($request);
         if ($transaction) {
 
-            if ($transaction === 'Error Processing') {
+            if ($transaction === 'Error Processing (product/amount may not exist)') {
                 return ResponseHelper::responseDisplay(400, 'Operation failed', $transaction);
             } else if ($transaction['status']) {
 

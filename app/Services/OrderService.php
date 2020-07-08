@@ -21,9 +21,10 @@ class OrderService
         $emailAddress =  $request->user_detail ? $request->user_detail['email'] : Auth::user()->email;
         $order = $this->orderInterface->makeOrder($request);
 
-        if($order === 'Error Processing') {
+        if($order === 'Error Processing (product/amount may not exist)') {
             return $order;
         }
+
 
         if (isset($order)) {
             $curl = curl_init();
