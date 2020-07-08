@@ -18,7 +18,7 @@ class OrderService
 
     public function initializePayment($request) {
 
-        $emailAddress =  $request->address ? $request->address['email'] : Auth::user()->email;
+        $emailAddress =  $request->user_detail ? $request->user_detail['email'] : Auth::user()->email;
         $order = $this->orderInterface->makeOrder($request);
 
         if($order === 'Error Processing') {
