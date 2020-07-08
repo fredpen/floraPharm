@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     //
+    protected $casts = [
+        'user_detail' => 'array'
+    ];
+
     public function orderDetail(){
         return $this->hasMany('App\Models\OrderDetail');
     }
