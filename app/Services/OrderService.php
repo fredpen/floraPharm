@@ -121,6 +121,10 @@ class OrderService
     {
          return $this->orderInterface->getSingleOrder($orderId);
     }
+ public function showWithRef($ref)
+    {
+         return $this->orderInterface->showWithRef($ref);
+    }
 
     public function allOrder(){
         return $this->orderInterface->allOrdersForAdmin();

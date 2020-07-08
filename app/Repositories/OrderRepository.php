@@ -28,6 +28,16 @@ class OrderRepository implements OrderInterface
     }
 
 
+    public function showWithRef($ref)
+    {
+        $order = $this->order->where('reference_no', $ref)->first();
+        if (!$order) {
+           return false;
+        }
+        return $order->user_id ? $this->order->where('reference_no', $ref)->with(['user', 'orderDetail', "address", "deliveryLocation"])->first() : $this->order->where('reference_no', $ref)->with(['user', 'orderDetail', "deliveryLocation"])->first();
+    }
+
+
     public function makeOrder($request)
     {
         // TODO: Implement makeOrder() method.

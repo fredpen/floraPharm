@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    //
+   
     public function orderDetail(){
         return $this->hasMany('App\Models\OrderDetail');
     }
@@ -23,6 +23,9 @@ class Order extends Model
     public function deliveryLocation() {
         return $this->belongsTo('App\Models\DeliveryLocation');
     }
+
+
+   
 
 
 }

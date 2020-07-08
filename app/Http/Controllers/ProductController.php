@@ -69,6 +69,8 @@ class ProductController extends Controller
         return ResponseHelper::success('Operation successful', $products['message']);
     }
 
+
+
     public function delete($productId)
     {
         $products = $this->productService->delete($productId);

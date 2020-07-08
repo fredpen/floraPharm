@@ -21,10 +21,5 @@ class ProductSeeder extends Seeder
 
        factory(\App\Models\Product::class, 30)->create();
 
-       
-
-
-
-
     }
 }
