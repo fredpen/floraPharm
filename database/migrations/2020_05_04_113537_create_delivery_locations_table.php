@@ -29,6 +29,7 @@ class CreateDeliveryLocationsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('delivery_locations');
     }
 }

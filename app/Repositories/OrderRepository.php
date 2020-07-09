@@ -28,6 +28,16 @@ class OrderRepository implements OrderInterface
     }
 
 
+    public function showWithRef($ref)
+    {
+        $order = $this->order->where('reference_no', $ref)->first();
+        if (!$order) {
+           return false;
+        }
+        return $order->user_id ? $this->order->where('reference_no', $ref)->with(['user', 'orderDetail', "address", "deliveryLocation"])->first() : $this->order->where('reference_no', $ref)->with(['user', 'orderDetail', "deliveryLocation"])->first();
+    }
+
+
     public function makeOrder($request)
     {
         // TODO: Implement makeOrder() method.
@@ -118,13 +128,13 @@ class OrderRepository implements OrderInterface
     public function getOrder()
     {
         // TODO: Implement getOrder() method.
-        return $this->order->where('user_id', Auth::id())->paginate(10);
+        return $this->order->where('user_id', Auth::id())->paginate(50);
     }
 
     public function allOrdersForAdmin()
     {
         // TODO: Implement allOrdersForAdmin() method.
-        return $this->order->with('address', 'user')->paginate(20);
+        return $this->order->with('address', 'user')->paginate(30);
     }
 
      public function getSingleOrder($orderId)

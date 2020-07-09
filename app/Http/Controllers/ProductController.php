@@ -69,6 +69,8 @@ class ProductController extends Controller
         return ResponseHelper::success('Operation successful', $products['message']);
     }
 
+
+
     public function delete($productId)
     {
         $products = $this->productService->delete($productId);
@@ -146,6 +148,15 @@ class ProductController extends Controller
         $products = $this->productService->landingPage();
         if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
+    public function filterProducts(Request $request)
+    {
+         $products = $this->productService->filterProducts($request);
+        if (!$products['status']) {
+            return ResponseHelper::badRequest($products['message']);
         }
         return ResponseHelper::success('Operation successful', $products['message']);
     }

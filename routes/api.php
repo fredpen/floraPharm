@@ -33,6 +33,7 @@ Route::group(['prefix' => 'order'], function(){
    Route::post('verify-transaction', 'OrderController@verifyTransaction')->middleware('auth:api');
    Route::get('', 'OrderController@getUserOrder')->middleware('auth:api');
    Route::get('show/{orderId}', 'OrderController@getSingleOrder')->middleware(['auth:api', 'isAdmin']);
+   Route::get('show-with-ref/{ref}', 'OrderController@showWithRef')->middleware();
    Route::get('all', 'OrderController@allOrder')->middleware(['auth:api', 'isAdmin']);
 });
 
@@ -83,6 +84,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('hot', 'ProductController@hot');
     Route::get('new', 'ProductController@new');
     Route::get('landing_page', 'ProductController@landingPage');
+    Route::post('filter', 'ProductController@filterProducts');
 });
 
 //top pick, hot, new, featured
