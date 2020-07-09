@@ -17,34 +17,34 @@ class ProductRepository implements ProductInterface
 
     public function create($request)
     {
-       return $this->product->create($request);
+        return $this->product->create($request);
     }
 
     public function edit($id, $request)
     {
-       return $this->product->find($id)->update($request);
+        return $this->product->find($id)->update($request);
     }
 
 
 
     public function all()
     {
-       return $this->product ? $this->product->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
+        return $this->product ? $this->product->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
     }
 
     public function active()
     {
-       return $this->product ? $this->product->where('status', 1)->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : false;
+        return $this->product ? $this->product->where('status', 1)->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : false;
     }
 
     public function show($productId)
     {
-       return $this->product->where('id', $productId)->with(['category', 'subCategory', 'brand'])->first();
+        return $this->product->where('id', $productId)->with(['category', 'subCategory', 'brand'])->first();
     }
 
     public function delete($productId)
     {
-       return $this->product->where('id', $productId)->delete();
+        return $this->product->where('id', $productId)->delete();
     }
 
     public function brand($brandId)
@@ -90,7 +90,7 @@ class ProductRepository implements ProductInterface
 
     private function fetchWithLimit($queryString, $limit = 10)
     {
-        return $this->product->where([ $queryString => 1, 'status' => 1])->limit($limit)->get();
+        return $this->product->where([$queryString => 1, 'status' => 1])->limit($limit)->get();
     }
 
     public function bestSeller()
@@ -111,5 +111,20 @@ class ProductRepository implements ProductInterface
         return $products->count() ? $products->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate(20) : [];
     }
 
+    public function filterProducts($request)
+    {
+        $brandsId = $request->brand_ids;
+        $category_ids = $request->category_ids;
+        $quantity = $request->quantity ? $request->quantity : 30;
 
+        $products = $this->product->where('status', 1)->where(function ($query) use ($category_ids, $brandsId) {
+            if ($category_ids && count($category_ids)) {
+                $query->whereIntegerInRaw('category_id', $category_ids);
+            }
+            if ($brandsId && count($brandsId)) {
+                $query->whereIntegerInRaw('brand_id', $brandsId);
+            }
+        });
+        return $products->paginate($quantity);
+    }
 }

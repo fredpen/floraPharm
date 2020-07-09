@@ -151,4 +151,13 @@ class ProductController extends Controller
         }
         return ResponseHelper::success('Operation successful', $products['message']);
     }
+
+    public function filterProducts(Request $request)
+    {
+         $products = $this->productService->filterProducts($request);
+        if (!$products['status']) {
+            return ResponseHelper::badRequest($products['message']);
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
 }

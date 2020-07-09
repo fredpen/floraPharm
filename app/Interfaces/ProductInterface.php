@@ -14,6 +14,8 @@ interface ProductInterface
 
     public function active();
 
+    public function filterProducts($request);
+
     public function homePage();
 
     public function show($productId);

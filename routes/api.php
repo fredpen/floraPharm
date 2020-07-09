@@ -84,6 +84,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('hot', 'ProductController@hot');
     Route::get('new', 'ProductController@new');
     Route::get('landing_page', 'ProductController@landingPage');
+    Route::post('filter', 'ProductController@filterProducts');
 });
 
 //top pick, hot, new, featured
