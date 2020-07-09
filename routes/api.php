@@ -28,9 +28,12 @@ Route::group(['prefix' => 'category'], function () {
 
 Route::group(['prefix' => 'order'], function(){
    Route::post('make-order', 'OrderController@makePayment')->middleware('auth:api');
+   Route::post('guest-order', 'OrderController@makePayment');
+   Route::post('verify-guest-transaction', 'OrderController@verifyTransaction');
    Route::post('verify-transaction', 'OrderController@verifyTransaction')->middleware('auth:api');
    Route::get('', 'OrderController@getUserOrder')->middleware('auth:api');
    Route::get('show/{orderId}', 'OrderController@getSingleOrder')->middleware(['auth:api', 'isAdmin']);
+   Route::get('show-with-ref/{ref}', 'OrderController@showWithRef')->middleware();
    Route::get('all', 'OrderController@allOrder')->middleware(['auth:api', 'isAdmin']);
 });
 
@@ -43,6 +46,14 @@ Route::group(['prefix' => 'sub-category'], function () {
     Route::get('all-sub-categories', 'SubCategoryController@all');
 });
 
+//delivery location
+Route::group(['prefix' => 'delivery-location'], function() {
+   Route::post('add', 'DeliveryLocationController@addLocation')->middleware(['auth:api', 'isAdmin']);
+   Route::post('update/{id}', 'DeliveryLocationController@updateLocation')->middleware(['auth:api', 'isAdmin']);
+   Route::get('delete/{id}', 'DeliveryLocationController@deleteLocation')->middleware(['auth:api', 'isAdmin']);
+   Route::get('/', 'DeliveryLocationController@locations');
+});
+
 
 // brands
 Route::group(['prefix' => 'brand'], function () {
@@ -53,10 +64,10 @@ Route::group(['prefix' => 'brand'], function () {
     Route::get('all', 'BrandController@all');
 });
 
+
 // products
 Route::group(['prefix' => 'product'], function () {
-    Route::post('create', 'ProductController@create')
-    ;
+    Route::post('create', 'ProductController@create');
     Route::post('edit', 'ProductController@edit')->middleware(['auth:api', 'isAdmin']);
     Route::get('delete/{productId}', 'ProductController@delete')->middleware(['auth:api', 'isAdmin']);
     Route::get('show/{productId}', 'ProductController@show');
@@ -64,6 +75,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('active', 'ProductController@active');
 
     // relationships
+    Route::get('home-page', 'ProductController@homePage');
     Route::get('brand/{brandId}', 'ProductController@brand');
     Route::get('category/{categoryId}', 'ProductController@category');
     Route::get('sub-category/{subCategoryId}', 'ProductController@subCategory');
@@ -72,7 +84,10 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('hot', 'ProductController@hot');
     Route::get('new', 'ProductController@new');
     Route::get('landing_page', 'ProductController@landingPage');
+    Route::post('filter', 'ProductController@filterProducts');
 });
+
+//top pick, hot, new, featured
 
 // wishlist
 Route::group( ['prefix' => 'wishlist', 'middleware' => 'auth:api'], function () {

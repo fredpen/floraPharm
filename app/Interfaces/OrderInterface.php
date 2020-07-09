@@ -18,4 +18,7 @@ interface OrderInterface
 
      public function getSingleOrder($orderId);
 
+
+     public function showWithRef($ref);
+
 }

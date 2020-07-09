@@ -22,8 +22,10 @@ class CreateOrdersTable extends Migration
             $table->string('promo_code')->nullable();
             $table->unsignedBigInteger('address_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('delivery_location_id')->nullable();
             $table->enum('delivery_type', [1, 2]);
-            $table->longText('address')->nullable();
+            $table->longText('user_detail')->nullable();
+            $table->foreign('delivery_location_id')->references('id')->on('delivery_locations');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('address_id')->references('id')->on('user_addresses')->onDelete('cascade');
             $table->timestamps();
@@ -37,6 +39,7 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('orders');
     }
 }

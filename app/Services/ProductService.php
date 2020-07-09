@@ -15,6 +15,12 @@ class ProductService
         $this->productInterface = $productInterface;
     }
 
+    public function homePage()
+    {
+        $product = $this->productInterface->homePage();
+        return $product ? ResponseHelper::reply(true, $product) : ResponseHelper::reply(false, "could not execute request");
+    }
+
     public function create($request)
     {
         $validate = $this->validateCreateRequest($request->all());
@@ -109,6 +115,26 @@ class ProductService
         return $product ? ResponseHelper::reply(true, $product) : ResponseHelper::reply(false, "could not execute request");
     }
 
+    public function filterProducts($request)
+    {
+        $validate = $this->validateFilter($request->all());
+        if ($validate->fails()) {
+            return ResponseHelper::reply(false, $validate->errors()->first());
+        }
+
+        $product = $this->productInterface->filterProducts($request);
+        return ResponseHelper::reply(true, $product);
+    }
+
+    private function validateFilter($request)
+    {
+        return Validator::make($request, [
+            'category_ids' => "array",
+            'brand_ids' => "array",
+            'quantity' => "integer"
+        ]);
+    }
+
 
 
     private function validateCreateRequest($request)
@@ -153,6 +179,4 @@ class ProductService
             'landing_page' => "boolean",
         ]);
     }
-
-
 }

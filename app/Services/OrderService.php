@@ -18,15 +18,17 @@ class OrderService
 
     public function initializePayment($request) {
 
+        $emailAddress =  $request->user_detail ? $request->user_detail['email'] : Auth::user()->email;
         $order = $this->orderInterface->makeOrder($request);
 
-        if($order === 'Error Processing') {
+        if($order === 'Error Processing (product/amount may not exist)') {
             return $order;
         }
 
+
         if (isset($order)) {
             $curl = curl_init();
-            $email = Auth::user()->email;
+            $email = $emailAddress;
             $amount = $order->total_amount * 100;
 
 
@@ -119,6 +121,10 @@ class OrderService
      public function getSingleOrder($orderId)
     {
          return $this->orderInterface->getSingleOrder($orderId);
+    }
+ public function showWithRef($ref)
+    {
+         return $this->orderInterface->showWithRef($ref);
     }
 
     public function allOrder(){

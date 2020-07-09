@@ -17,11 +17,11 @@ class CreateUserAddressesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string('address');
-            $table->string('city');
+            $table->string('city')->nullable();
             $table->string('state')->nullable();
-            $table->string('country');
+            $table->string('country')->nullable();
             $table->string('post_code')->nullable();
-            $table->boolean('default_status')->default(0);
+            $table->boolean('default_status')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
@@ -34,6 +34,7 @@ class CreateUserAddressesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('user_addresses');
     }
 }

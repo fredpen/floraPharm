@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Interfaces\BrandInterface;
+use App\Interfaces\DeliveryLocationInterface;
 use App\Interfaces\OrderInterface;
 use App\Interfaces\PaymentInterface;
 use App\Interfaces\UserInterface;
+use App\Repositories\DeliveryLocationRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\PaymentRepository;
 use App\Repositories\UserRepository;
@@ -34,6 +36,7 @@ class RepositoryServiceProvider extends ServiceProvider
         UserInterface::class => UserRepository::class,
         CategoryInterface::class => CategoryRepository::class,
         ProductInterface::class => ProductRepository::class,
+        DeliveryLocationInterface::class => DeliveryLocationRepository::class,
         BrandInterface::class => BrandRespository::class,
         OrderInterface::class => OrderRepository::class,
         WishListInterface::class => WishListRepository::class,

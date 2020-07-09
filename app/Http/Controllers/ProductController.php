@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function create(Request $request)
     {
         $create = $this->productService->create($request);
-        if (! $create['status']) {
+        if (!$create['status']) {
             return ResponseHelper::badRequest($create['message']);
         }
         return ResponseHelper::success('Operation successful');
@@ -27,16 +27,25 @@ class ProductController extends Controller
     public function edit(Request $request)
     {
         $edit = $this->productService->edit($request);
-        if (! $edit['status']) {
+        if (!$edit['status']) {
             return ResponseHelper::badRequest($edit['message']);
         }
         return ResponseHelper::success('Operation successful');
     }
 
+    public function homePage()
+    {
+        $products = $this->productService->homePage();
+        if (!$products['status']) {
+            return ResponseHelper::badRequest($products['message']);
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
     public function all()
     {
         $products = $this->productService->all();
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
@@ -45,7 +54,7 @@ class ProductController extends Controller
     public function active()
     {
         $products = $this->productService->active();
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
@@ -54,16 +63,18 @@ class ProductController extends Controller
     public function show($productId)
     {
         $products = $this->productService->show($productId);
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
     }
 
+
+
     public function delete($productId)
     {
         $products = $this->productService->delete($productId);
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
@@ -72,7 +83,7 @@ class ProductController extends Controller
     public function brand($brandId)
     {
         $products = $this->productService->brand($brandId);
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
@@ -81,7 +92,7 @@ class ProductController extends Controller
     public function category($categoryId)
     {
         $products = $this->productService->category($categoryId);
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
@@ -90,7 +101,7 @@ class ProductController extends Controller
     public function subCategory($subCategoryId)
     {
         $products = $this->productService->subCategory($subCategoryId);
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
@@ -99,7 +110,7 @@ class ProductController extends Controller
     public function featured()
     {
         $products = $this->productService->featured();
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
@@ -108,7 +119,7 @@ class ProductController extends Controller
     public function hot()
     {
         $products = $this->productService->hot();
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
@@ -117,7 +128,7 @@ class ProductController extends Controller
     public function bestSellers()
     {
         $products = $this->productService->bestSeller();
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
@@ -126,7 +137,7 @@ class ProductController extends Controller
     public function new()
     {
         $products = $this->productService->new();
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
@@ -135,11 +146,18 @@ class ProductController extends Controller
     public function landingPage()
     {
         $products = $this->productService->landingPage();
-        if (! $products['status']) {
+        if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
         return ResponseHelper::success('Operation successful', $products['message']);
     }
 
-
+    public function filterProducts(Request $request)
+    {
+         $products = $this->productService->filterProducts($request);
+        if (!$products['status']) {
+            return ResponseHelper::badRequest($products['message']);
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
 }

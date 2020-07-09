@@ -38,11 +38,11 @@ $factory->define(\App\Models\Product::class, function (Faker $faker) {
        'description' => $faker->paragraph,
        'price' => $faker->numberBetween(100, 100000),
        'status' => 1,
-       "featured" =>  $faker->boolean,
-       "hot" => true,
-       "best_seller" => true,
-       "new" => true,
-       "landing_page" => false,
+       'featured' => 1,
+       'hot' => 1,
+       'best_seller' => 1,
+       'new' => 1,
+       'landing_page' => 1,
        'image_url' => "https://res.cloudinary.com/dk93ofxer/image/upload/v1593245246/floraPharm/hr9xj9hgpkpgs0jafa2d.png"
    ];
 });
