@@ -25,9 +25,12 @@ class BrandRespository implements BrandInterface
        return $this->brand->where('id', $request['id'])->update(['name' => $request['name']]);
     }
 
-    public function all()
+    public function all($admin = false)
     {
-       return $this->brand ? $this->brand->orderBy('updated_at', 'Desc')->get() : false;
+        if ($admin) {
+            return $this->brand ? $this->brand->orderBy('updated_at', 'Desc')->get() : false;
+        }
+       return $this->brand->where('status', 1) ? $this->brand->where('status', 1)->orderBy('updated_at', 'Desc')->get() : false;
     }
 
     public function show($brandId)

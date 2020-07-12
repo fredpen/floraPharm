@@ -139,7 +139,7 @@ class OrderRepository implements OrderInterface
 
      public function getSingleOrder($orderId)
     {
-        return $this->order->with('orderDetail.product', 'address', 'user')->where('id', $orderId)->first();
+        return $this->order->with('orderDetail.product', 'address', 'user', 'deliveryLocation')->where('id', $orderId)->first();
     }
 
 
