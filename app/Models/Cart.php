@@ -21,4 +21,9 @@ class Cart extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+     public function scopeUpdatedAtDescending($query)
+    {
+        return $query->orderBy('updated_at', 'desc');
+    }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user', 'Auth\RegisterController@getUser');
 });
+Route::get('website-details', 'DeliveryLocationController@websiteDetails');
 
 Route::group(['prefix' => 'user'], function () {
     Route::post('register', 'Auth\RegisterController@create');
@@ -23,6 +24,7 @@ Route::group(['prefix' => 'category'], function () {
     Route::get('delete/{categoryId}', 'CategoryController@delete')->middleware(['auth:api', 'isAdmin']);
     Route::get('show/{categoryId}', 'CategoryController@show');
     Route::get('all-categories', 'CategoryController@all');
+    Route::get('admin/all-categories', 'CategoryController@adminAll');
     Route::get('all-categories-without-sub', 'CategoryController@allWithoutSub');
 });
 
@@ -33,6 +35,7 @@ Route::group(['prefix' => 'order'], function(){
    Route::post('verify-transaction', 'OrderController@verifyTransaction')->middleware('auth:api');
    Route::get('', 'OrderController@getUserOrder')->middleware('auth:api');
    Route::get('show/{orderId}', 'OrderController@getSingleOrder')->middleware(['auth:api', 'isAdmin']);
+   Route::get('show-with-ref/{ref}', 'OrderController@showWithRef')->middleware();
    Route::get('all', 'OrderController@allOrder')->middleware(['auth:api', 'isAdmin']);
 });
 
@@ -61,6 +64,7 @@ Route::group(['prefix' => 'brand'], function () {
     Route::get('delete/{brandId}', 'BrandController@delete')->middleware(['auth:api', 'isAdmin']);
     Route::get('show/{brandId}', 'BrandController@show');
     Route::get('all', 'BrandController@all');
+    Route::get('admin/all', 'BrandController@adminAll');
 });
 
 
@@ -71,18 +75,22 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('delete/{productId}', 'ProductController@delete')->middleware(['auth:api', 'isAdmin']);
     Route::get('show/{productId}', 'ProductController@show');
     Route::get('all', 'ProductController@all');
+    Route::get('admin/all', 'ProductController@adminAll');
     Route::get('active', 'ProductController@active');
 
     // relationships
     Route::get('home-page', 'ProductController@homePage');
     Route::get('brand/{brandId}', 'ProductController@brand');
+    Route::get('admin/brand/{brandId}', 'ProductController@adminBrand');
     Route::get('category/{categoryId}', 'ProductController@category');
+    Route::get('admin/category/{categoryId}', 'ProductController@adminCategory');
     Route::get('sub-category/{subCategoryId}', 'ProductController@subCategory');
     Route::get('best-sellers', 'ProductController@bestSellers');
     Route::get('featured', 'ProductController@featured');
     Route::get('hot', 'ProductController@hot');
     Route::get('new', 'ProductController@new');
     Route::get('landing_page', 'ProductController@landingPage');
+    Route::post('filter', 'ProductController@filterProducts');
 });
 
 //top pick, hot, new, featured

@@ -51,6 +51,15 @@ class ProductController extends Controller
         return ResponseHelper::success('Operation successful', $products['message']);
     }
 
+    public function adminAll()
+    {
+        $products = $this->productService->adminAll();
+        if (!$products['status']) {
+            return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
     public function active()
     {
         $products = $this->productService->active();
@@ -81,6 +90,25 @@ class ProductController extends Controller
     public function brand($brandId)
     {
         $products = $this->productService->brand($brandId);
+        if (!$products['status']) {
+            return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
+    public function adminBrand($brandId)
+    {
+        $products = $this->productService->adminBrand($brandId);
+        if (!$products['status']) {
+            return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
+
+    public function adminCategory($categoryId)
+    {
+        $products = $this->productService->adminCategory($categoryId);
         if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
         }
@@ -146,6 +174,15 @@ class ProductController extends Controller
         $products = $this->productService->landingPage();
         if (!$products['status']) {
             return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
+    public function filterProducts(Request $request)
+    {
+         $products = $this->productService->filterProducts($request);
+        if (!$products['status']) {
+            return ResponseHelper::badRequest($products['message']);
         }
         return ResponseHelper::success('Operation successful', $products['message']);
     }

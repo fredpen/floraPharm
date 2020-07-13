@@ -49,6 +49,12 @@ class ProductService
         return $products ? ResponseHelper::reply(true, $products) : ResponseHelper::reply(false, "could not execute request");
     }
 
+    public function adminAll()
+    {
+        $products = $this->productInterface->all(true);
+        return $products ? ResponseHelper::reply(true, $products) : ResponseHelper::reply(false, "could not execute request");
+    }
+
     public function active()
     {
         $products = $this->productInterface->active();
@@ -64,6 +70,18 @@ class ProductService
     public function delete($productId)
     {
         $product = $this->productInterface->delete($productId);
+        return $product ? ResponseHelper::reply(true, $product) : ResponseHelper::reply(false, "could not execute request");
+    }
+
+    public function adminBrand($brandId)
+    {
+        $product = $this->productInterface->brand($brandId, true);
+        return $product ? ResponseHelper::reply(true, $product) : ResponseHelper::reply(false, "could not execute request");
+    }
+
+    public function adminCategory($categoryId)
+    {
+        $product = $this->productInterface->category($categoryId, true);
         return $product ? ResponseHelper::reply(true, $product) : ResponseHelper::reply(false, "could not execute request");
     }
 
@@ -115,6 +133,26 @@ class ProductService
         return $product ? ResponseHelper::reply(true, $product) : ResponseHelper::reply(false, "could not execute request");
     }
 
+    public function filterProducts($request)
+    {
+        $validate = $this->validateFilter($request->all());
+        if ($validate->fails()) {
+            return ResponseHelper::reply(false, $validate->errors()->first());
+        }
+
+        $product = $this->productInterface->filterProducts($request);
+        return ResponseHelper::reply(true, $product);
+    }
+
+    private function validateFilter($request)
+    {
+        return Validator::make($request, [
+            'category_ids' => "array",
+            'brand_ids' => "array",
+            'quantity' => "integer"
+        ]);
+    }
+
 
 
     private function validateCreateRequest($request)
@@ -159,6 +197,4 @@ class ProductService
             'landing_page' => "boolean",
         ]);
     }
-
-
 }

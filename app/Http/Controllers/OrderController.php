@@ -63,6 +63,16 @@ class OrderController extends Controller
         return ResponseHelper::responseDisplay(400, 'Operation failed', $orders);
     }
 
+    
+     public function showWithRef($ref)
+    {
+        $orders = $this->orderService->showWithRef($ref);
+       if ($orders) {
+            return ResponseHelper::responseDisplay(200, 'Operation successful', $orders);
+        }
+        return ResponseHelper::responseDisplay(400, 'Operation failed', $orders);
+    }
+
     public function allOrder()
     {
         $orders = $this->orderService->allOrder();

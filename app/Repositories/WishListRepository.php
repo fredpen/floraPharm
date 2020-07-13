@@ -39,6 +39,6 @@ class WishListRepository implements WishListInterface
     public function all($userId)
     {
         $wishLists = $this->wishList->where('user_id', $userId);
-        return $wishLists->count() ? $wishLists->with(['user', 'product'])->paginate(20) : false;
+        return $wishLists->count() ? $wishLists->with(['user', 'product'])->orderBy('updated_at', 'desc')->paginate(20) : false;
     }
 }

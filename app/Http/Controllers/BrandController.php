@@ -60,4 +60,13 @@ class BrandController extends Controller
         }
         return ResponseHelper::success('Operation successful', $categories['message']);
     }
+
+    public function adminAll()
+    {
+        $categories = $this->brandService->adminAll();
+        if (! $categories['status']) {
+            return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $categories['message']);
+    }
 }
