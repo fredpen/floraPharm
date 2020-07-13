@@ -143,39 +143,40 @@ class UserRepository implements UserInterface
         return $this->user->where('email', $request->email)->first();
     }
 
-    public function saveForgotPassword($user, $token)
+    public function saveForgotPassword($user, $token, $randomPassword)
     {
         // TODO: Implement saveForgotPassword() method.
 
         $tokenData = new ForgetPasswordToken();
         $tokenData->user_id = $user->id;
         $tokenData->token = $token;
+        $tokenData->password = $randomPassword;
         if ($tokenData->save()){
             return 'saved';
         }
 
     }
 
-    public function updateUserToken($token) {
-       $token =  ForgetPasswordToken::where('token', $token)->first();
-       $token->status = 1;
-       $token->save();
+    public function updateUserToken($password) {
+       $password =  ForgetPasswordToken::where('password', $password)->first();
+       $password->status = 1;
+       $password->save();
     }
 
     public function findUserByToken($request)
     {
         // TODO: Implement findUserByToken() method.
-        $token =  ForgetPasswordToken::where('token', $request->token)->where('status', 0)->first();
-       if ($token) {
-           $user = $token->user()->first();
+        $temp_password =  ForgetPasswordToken::where('password', $request->temp_password)->where('status', 0)->first();
+       if ($temp_password) {
+           $user = $temp_password->user()->first();
            $user->password = Hash::make($request->password);
            if ($user->save()) {
-               $this->updateUserToken($request->token);
+               $this->updateUserToken($request->temp_password);
                return 'password changed';
            }
        }
 
-       return 'token not usable';
+       return 'temporary password not usable';
 
     }
 

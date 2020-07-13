@@ -17,6 +17,7 @@ class CreateForgetPasswordTokensTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string( 'token', 100)->unique();
+            $table->string('password')->unique();
             $table->boolean('status')->default('0');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
