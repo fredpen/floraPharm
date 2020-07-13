@@ -63,7 +63,7 @@ class OrderController extends Controller
         return ResponseHelper::responseDisplay(400, 'Operation failed', $orders);
     }
 
-    
+
      public function showWithRef($ref)
     {
         $orders = $this->orderService->showWithRef($ref);
@@ -80,5 +80,15 @@ class OrderController extends Controller
             return ResponseHelper::responseDisplay(200, 'Operation successful', $orders);
         }
         return ResponseHelper::responseDisplay(400, 'Operation failed', $orders);
+    }
+
+    public function searchOrder(Request $request)
+    {
+        $orders  = $this->orderService->searchForOrder($request);
+        if (count($orders) > 0) {
+            return ResponseHelper::responseDisplay(200, 'Operation successful', $orders);
+        }
+        return ResponseHelper::responseDisplay(200, 'Order Not Found', $orders);
+
     }
 }
