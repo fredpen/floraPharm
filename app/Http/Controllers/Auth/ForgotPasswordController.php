@@ -35,6 +35,8 @@ class ForgotPasswordController extends Controller
         $password = $this->userService->forgotUserPassword($request);
         if (is_array($password)) {
             return ResponseHelper::responseDisplay(400, 'Bad request', $password);
+        } else if ($password === 'false') {
+            return ResponseHelper::responseDisplay(400, 'User does not exist', $password);
         }
         return ResponseHelper::responseDisplay(200, 'Mail sent', $password);
     }
@@ -44,9 +46,8 @@ class ForgotPasswordController extends Controller
 
         if (is_array($password)) {
             return ResponseHelper::responseDisplay(400, 'Bad request', $password);
-        } else if ($password === 'token not usable') {
-            return ResponseHelper::responseDisplay(404, 'Token not found', $password);
-
+        } else if ($password === 'temporary password not usable') {
+            return ResponseHelper::responseDisplay(404, 'Temporary password usuable', $password);
         }
           return ResponseHelper::responseDisplay(200, 'Password changed', $password);
 
