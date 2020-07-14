@@ -37,6 +37,7 @@ Route::group(['prefix' => 'order'], function(){
    Route::get('show/{orderId}', 'OrderController@getSingleOrder')->middleware(['auth:api', 'isAdmin']);
    Route::get('show-with-ref/{ref}', 'OrderController@showWithRef')->middleware();
    Route::get('all', 'OrderController@allOrder')->middleware(['auth:api', 'isAdmin']);
+   Route::post('search-order', 'OrderController@searchOrder')->middleware(['auth:api', 'isAdmin']);
 });
 
 // subcategory

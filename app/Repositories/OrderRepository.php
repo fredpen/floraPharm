@@ -8,6 +8,7 @@ use App\Interfaces\OrderInterface;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Order;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -143,4 +144,12 @@ class OrderRepository implements OrderInterface
     }
 
 
+    public function searchOrder($request)
+    {
+        // TODO: Implement searchOrder() method.
+
+        return $this->order->whereHas('orderDetail', function (Builder $query) use ($request) {
+             $query->where('product_name', 'like', '%'.$request->value.'%');
+        })->with('orderDetail')->orWhere('order_num', 'LIKE','%'.$request->value.'%')->orWhere('reference_no', 'LIKE','%'.$request->value.'%')->get();
+    }
 }
