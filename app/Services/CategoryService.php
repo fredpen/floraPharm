@@ -80,7 +80,7 @@ class CategoryService
     {
         return Validator::make($request, [
             'id' => "required|integer|exists:category",
-            'name' => "required|string|unique:category"
+            'name' => "required|string"
         ]);
     }
 

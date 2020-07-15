@@ -25,7 +25,7 @@ class CategoryRepository implements CategoryInterface
 
     public function edit($request)
     {
-        return $this->category->where('id', $request['id'])->update(['name' => $request['name']]);
+        return $this->category->where('id', $request['id'])->update(['name' => $request['name'], 'status' => $request['status']]);
     }
 
     public function all()

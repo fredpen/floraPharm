@@ -22,7 +22,7 @@ class BrandRespository implements BrandInterface
 
     public function edit($request)
     {
-       return $this->brand->where('id', $request['id'])->update(['name' => $request['name']]);
+       return $this->brand->where('id', $request['id'])->update(['name' => $request['name'], 'status' => $request['status']]);
     }
 
     public function all($admin = false)

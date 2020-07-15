@@ -73,7 +73,7 @@ class BrandService
     {
         return Validator::make($request, [
             'id' => "required|integer|exists:brand",
-            'name' => "required|string|unique:brand"
+            'name' => "required|string"
         ]);
     }
 
