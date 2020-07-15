@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -77,6 +79,8 @@ class ProductController extends Controller
         }
         return ResponseHelper::success('Operation successful', $products['message']);
     }
+
+
 
     public function delete($productId)
     {
@@ -180,10 +184,27 @@ class ProductController extends Controller
 
     public function filterProducts(Request $request)
     {
-         $products = $this->productService->filterProducts($request);
+        $products = $this->productService->filterProducts($request);
         if (!$products['status']) {
             return ResponseHelper::badRequest($products['message']);
         }
         return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
+    public function orderNotifications($productId)
+    {
+        $notification = [];
+        $orders = OrderDetail::where('product_id', $productId)->with('order')->orderBy('created_at', 'desc')->limit(5)->get();
+        
+        foreach ($orders as $OrderDetail) {
+            if ($OrderDetail = $OrderDetail->order) {
+                $name = $OrderDetail->user_id ? $OrderDetail->user->first_name . " " . $OrderDetail->user->last_name : $OrderDetail->user_detail['name'];
+                $location = $OrderDetail->address_id ? $OrderDetail->user->address : $OrderDetail->user_detail['address'];
+
+                $notif = ['name' => $name, 'location' => $location, 'time' => $OrderDetail->created_at->diffForHumans()];
+                array_push($notification, $notif);
+            }
+        }
+        return ResponseHelper::success('Operation successful', $notification);
     }
 }

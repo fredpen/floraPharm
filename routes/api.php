@@ -37,6 +37,7 @@ Route::group(['prefix' => 'order'], function(){
    Route::get('show/{orderId}', 'OrderController@getSingleOrder')->middleware(['auth:api', 'isAdmin']);
    Route::get('show-with-ref/{ref}', 'OrderController@showWithRef')->middleware();
    Route::get('all', 'OrderController@allOrder')->middleware(['auth:api', 'isAdmin']);
+   Route::post('search-order', 'OrderController@searchOrder')->middleware(['auth:api', 'isAdmin']);
 });
 
 // subcategory
@@ -79,6 +80,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('active', 'ProductController@active');
 
     // relationships
+    Route::get('order-notifications/{productId}', 'ProductController@orderNotifications');
     Route::get('home-page', 'ProductController@homePage');
     Route::get('brand/{brandId}', 'ProductController@brand');
     Route::get('admin/brand/{brandId}', 'ProductController@adminBrand');
