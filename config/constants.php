@@ -8,7 +8,7 @@ return [
     "PRODUCT_AVAILABILITY" => [
         1 => "Available",
         2 => "Limited Stock",
-        3 => "Out of Stock"
+        0 => "Out of Stock"
     ],
 
     "url" => "http://www.floraxpharmacy.com.ng",
