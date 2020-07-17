@@ -8,14 +8,16 @@ return [
     "PRODUCT_AVAILABILITY" => [
         1 => "Available",
         2 => "Limited Stock",
-        3 => "Out of Stock"
+        0 => "Out of Stock"
     ],
+
+    "url" => "http://www.floraxpharmacy.com.ng",
 
     "WEBSITE_DETAILS" => [
         "displayMessage" => [
-            [ "message" => "I am the first message "],
-            [ "message" => "I am the second message "],
-            [ "message" => "I am the third message "]
+            [ "message" => "Welcome to Floax pharmacy, we are here to serve "],
+            [ "message" => "We deliver straight to your door step in matter of hours "],
+            [ "message" => "Contact us on +234 9010880148 "]
         ],
         "address_top" => "NO 9, Otunba Adedoyin Ogungbe Crescent,",
         "adress_down" => "Lekki Phase 1, Lagos State.",
