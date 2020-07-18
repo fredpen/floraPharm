@@ -7,6 +7,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 Route::get('website-details', 'DeliveryLocationController@websiteDetails');
 Route::post('contact-us', 'WebManagementController@mailAdmin');
+Route::get('admin-Landing-Page-Products', 'WebManagementController@adminLandingPageProducts')->middleware(['auth:api', 'isAdmin']);
 
 Route::group(['prefix' => 'user'], function () {
     Route::post('register', 'Auth\RegisterController@create');
