@@ -116,7 +116,7 @@ class ProductRepository implements ProductInterface
 
     public function landingPage()
     {
-        $products = $this->product->where(['landing_page', 1, 'status' => 1]);
+        $products = $this->product->where(['landing_page' => 1, 'status' => 1]);
         return $products->count() ? $products->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate($this->paginate) : [];
     }
 
