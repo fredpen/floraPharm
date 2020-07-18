@@ -110,7 +110,7 @@ class ProductRepository implements ProductInterface
 
     public function new()
     {
-        $products = $this->product->where(['new', 1, 'status' => 1]);
+        $products = $this->product->where(['new' => 1, 'status' => 1]);
         return $products->count() ? $products->with(['category', 'brand'])->orderBy('updated_at', 'desc')->paginate($this->paginate) : [];
     }
 
