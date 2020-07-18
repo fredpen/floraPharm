@@ -57,6 +57,7 @@ class OrderService
             }
 
             $tranx = json_decode($response, true);
+            $tranx['data']['total_amount'] = $order->total_amount;
 
             if(!$tranx['status']){
                 // there was an error from the API
