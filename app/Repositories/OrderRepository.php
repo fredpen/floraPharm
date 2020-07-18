@@ -21,6 +21,7 @@ class OrderRepository implements OrderInterface
     protected $save_status = false;
     protected $products = [];
     protected $a;
+    protected $shippingFee;
 
     public function __construct(Order $order)
     {
@@ -58,9 +59,15 @@ class OrderRepository implements OrderInterface
             }
         }
 
+        if ($this->order->deliveryLocation) {
+            $this->shippingFee = $this->order->deliveryLocation->price;
+        } else {
+            $this->shippingFee = 0;
+        }
+
 
         if ($this->save_status) {
-            $this->order->total_amount = $this->total_amount + $this->order->deliveryLocation->price;
+            $this->order->total_amount = $this->total_amount + $this->shippingFee;
             $this->order->save();
             foreach($this->products as $product) {
                 $this->order->orderDetail()->save($product);
