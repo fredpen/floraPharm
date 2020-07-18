@@ -4,8 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Helpers\MailHelper;
 use App\Helpers\ResponseHelper;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class WebManagementController extends Controller
 {
@@ -18,6 +25,27 @@ class WebManagementController extends Controller
         $sendMail = MailHelper::mailAdmin($request->title, $request->body, $request->from, $request->phone, $request->name);
         return ResponseHelper::success('Operation successful');
     }
+
+    public function adminLandingPageProducts()
+    {
+        $limit = 5;
+        $products = [];
+        $orderCount = Order::count();
+        $products['avgSales'] = round(OrderDetail::sum('amount') / $orderCount);
+        $products['recentNotifs'] = Auth::user()->notifications;
+        $products['recentOrders'] = Order::with('address', 'user')->orderBy('updated_at', 'desc')->limit($limit)->get();
+        $products['recentUsers'] = User::orderBy('updated_at', 'desc')->limit($limit)->get();
+        $products['recentProducts'] = Product::orderBy('updated_at', 'desc')->limit($limit)->get();
+        $products['recentBrands'] = Brand::orderBy('updated_at', 'desc')->limit($limit)->get();
+        $products['ordersCount'] = Order::count();
+        $products['productsCount'] = Product::count();
+        $products['brandCount'] = Brand::count();
+        $products['categoryCount'] = Category::count();
+        $products['usersCount'] = User::count();
+        $products['ordersCount'] = $orderCount;
+        return ResponseHelper::success('Operation successful', $products);
+    }
+
 
     private function validateMail($request)
     {
