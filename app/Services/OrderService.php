@@ -19,7 +19,7 @@ class OrderService
     public function initializePayment($request) {
 
         $emailAddress =  $request->user_detail ? $request->user_detail['email'] : Auth::user()->email;
-        $order = $this->orderInterface->makeOrder($request);
+         $order = $this->orderInterface->makeOrder($request);
 
         if($order === 'Error Processing (product/amount may not exist)') {
             return $order;
