@@ -43,7 +43,8 @@ $factory->define(\App\Models\Product::class, function (Faker $faker) {
        'best_seller' => 1,
        'new' => 1,
        'landing_page' => 1,
-       'image_url' => "https://res.cloudinary.com/dk93ofxer/image/upload/v1593245246/floraPharm/hr9xj9hgpkpgs0jafa2d.png"
+       'image_url' => $faker->randomElement(["https://d36h5xyl0pecwl.cloudfront.net/productImage/HP1670.jpg", " https://d36h5xyl0pecwl.cloudfront.net/productImage/HP1651.jpg", "https://d36h5xyl0pecwl.cloudfront.net/productImage/HP1643.jpg", "https://d36h5xyl0pecwl.cloudfront.net/productImage/HP1637.jpg", "https://d36h5xyl0pecwl.cloudfront.net/productImage/HP01712.jpg"])
+       
    ];
 });
  

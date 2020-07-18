@@ -6,6 +6,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user', 'Auth\RegisterController@getUser');
 });
 Route::get('website-details', 'DeliveryLocationController@websiteDetails');
+Route::post('contact-us', 'WebManagementController@mailAdmin');
 
 Route::group(['prefix' => 'user'], function () {
     Route::post('register', 'Auth\RegisterController@create');
@@ -80,6 +81,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('active', 'ProductController@active');
 
     // relationships
+    Route::get('order-notifications/{productId}', 'ProductController@orderNotifications');
     Route::get('home-page', 'ProductController@homePage');
     Route::get('brand/{brandId}', 'ProductController@brand');
     Route::get('admin/brand/{brandId}', 'ProductController@adminBrand');
