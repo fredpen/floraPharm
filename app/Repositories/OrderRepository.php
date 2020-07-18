@@ -60,7 +60,7 @@ class OrderRepository implements OrderInterface
 
 
         if ($this->save_status) {
-            $this->order->total_amount = $this->total_amount;
+            $this->order->total_amount = $this->total_amount + $this->order->deliveryLocation->price;
             $this->order->save();
             foreach($this->products as $product) {
                 $this->order->orderDetail()->save($product);

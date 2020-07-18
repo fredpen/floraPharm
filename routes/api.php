@@ -9,6 +9,10 @@ Route::get('website-details', 'DeliveryLocationController@websiteDetails');
 Route::post('contact-us', 'WebManagementController@mailAdmin');
 Route::get('admin-Landing-Page-Products', 'WebManagementController@adminLandingPageProducts')->middleware(['auth:api', 'isAdmin']);
 
+Route::get('admin-Landing-Page-Products', 'WebManagementController@adminLandingPageProducts')->middleware(['auth:api', 'isAdmin']);
+
+
+
 Route::group(['prefix' => 'user'], function () {
     Route::post('register', 'Auth\RegisterController@create');
     Route::get('all', 'Auth\RegisterController@allUsers');
@@ -30,16 +34,16 @@ Route::group(['prefix' => 'category'], function () {
     Route::get('all-categories-without-sub', 'CategoryController@allWithoutSub');
 });
 
-Route::group(['prefix' => 'order'], function(){
-   Route::post('make-order', 'OrderController@makePayment')->middleware('auth:api');
-   Route::post('guest-order', 'OrderController@makePayment');
-   Route::post('verify-guest-transaction', 'OrderController@verifyTransaction');
-   Route::post('verify-transaction', 'OrderController@verifyTransaction')->middleware('auth:api');
-   Route::get('', 'OrderController@getUserOrder')->middleware('auth:api');
-   Route::get('show/{orderId}', 'OrderController@getSingleOrder')->middleware(['auth:api', 'isAdmin']);
-   Route::get('show-with-ref/{ref}', 'OrderController@showWithRef')->middleware();
-   Route::get('all', 'OrderController@allOrder')->middleware(['auth:api', 'isAdmin']);
-   Route::post('search-order', 'OrderController@searchOrder')->middleware(['auth:api', 'isAdmin']);
+Route::group(['prefix' => 'order'], function () {
+    Route::post('make-order', 'OrderController@makePayment')->middleware('auth:api');
+    Route::post('guest-order', 'OrderController@makePayment');
+    Route::post('verify-guest-transaction', 'OrderController@verifyTransaction');
+    Route::post('verify-transaction', 'OrderController@verifyTransaction')->middleware('auth:api');
+    Route::get('', 'OrderController@getUserOrder')->middleware('auth:api');
+    Route::get('show/{orderId}', 'OrderController@getSingleOrder')->middleware(['auth:api', 'isAdmin']);
+    Route::get('show-with-ref/{ref}', 'OrderController@showWithRef')->middleware();
+    Route::get('all', 'OrderController@allOrder')->middleware(['auth:api', 'isAdmin']);
+    Route::post('search-order', 'OrderController@searchOrder')->middleware(['auth:api', 'isAdmin']);
 });
 
 // subcategory
@@ -52,11 +56,11 @@ Route::group(['prefix' => 'sub-category'], function () {
 });
 
 //delivery location
-Route::group(['prefix' => 'delivery-location'], function() {
-   Route::post('add', 'DeliveryLocationController@addLocation')->middleware(['auth:api', 'isAdmin']);
-   Route::post('update/{id}', 'DeliveryLocationController@updateLocation')->middleware(['auth:api', 'isAdmin']);
-   Route::get('delete/{id}', 'DeliveryLocationController@deleteLocation')->middleware(['auth:api', 'isAdmin']);
-   Route::get('/', 'DeliveryLocationController@locations');
+Route::group(['prefix' => 'delivery-location'], function () {
+    Route::post('add', 'DeliveryLocationController@addLocation')->middleware(['auth:api', 'isAdmin']);
+    Route::post('update/{id}', 'DeliveryLocationController@updateLocation')->middleware(['auth:api', 'isAdmin']);
+    Route::get('delete/{id}', 'DeliveryLocationController@deleteLocation')->middleware(['auth:api', 'isAdmin']);
+    Route::get('/', 'DeliveryLocationController@locations');
 });
 
 
@@ -100,7 +104,7 @@ Route::group(['prefix' => 'product'], function () {
 //top pick, hot, new, featured
 
 // wishlist
-Route::group( ['prefix' => 'wishlist', 'middleware' => 'auth:api'], function () {
+Route::group(['prefix' => 'wishlist', 'middleware' => 'auth:api'], function () {
     Route::post('add', 'WishListController@add');
     Route::get('remove/{productId}', 'WishListController@remove');
     Route::get('clear', 'WishListController@clear');
@@ -108,7 +112,7 @@ Route::group( ['prefix' => 'wishlist', 'middleware' => 'auth:api'], function () 
 });
 
 // cart
-Route::group( ['prefix' => 'cart', 'middleware' => 'auth:api'], function () {
+Route::group(['prefix' => 'cart', 'middleware' => 'auth:api'], function () {
     //call this endpoint for removal too just pass zero as quantity
     Route::post('update', 'CartController@update');
     Route::get('clear', 'CartController@clear');
