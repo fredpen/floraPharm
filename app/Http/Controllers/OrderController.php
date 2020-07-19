@@ -76,10 +76,12 @@ class OrderController extends Controller
     {
         $orders = $this->orderService->getSingleOrder($orderId);
 
-        if ($orders) {
-            return ResponseHelper::responseDisplay(200, 'Operation successful', $orders);
+        if ($orders === 'Unauthorized') {
+            return ResponseHelper::responseDisplay(400, 'You are not authorized to view this resource', $orders);
+        } else if ($orders === 'Not found') {
+            return ResponseHelper::responseDisplay(404, 'Order id not found', $orders);
         }
-        return ResponseHelper::responseDisplay(400, 'Operation failed', $orders);
+        return ResponseHelper::responseDisplay(200, 'Operation successful', $orders);
     }
 
 
