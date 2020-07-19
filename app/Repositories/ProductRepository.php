@@ -89,7 +89,7 @@ class ProductRepository implements ProductInterface
     public function homePage()
     {
         $products = [];
-        // $products['bestSeller'] = $this->fetchWithLimit('best_seller');
+        $products['bestSeller'] = $this->fetchWithLimit('best_seller');
         $products['new'] = $this->fetchWithLimit('new');
         $products['landingPage'] = $this->fetchWithLimit('landing_page');
         $products['hot'] = $this->fetchWithLimit('hot');
