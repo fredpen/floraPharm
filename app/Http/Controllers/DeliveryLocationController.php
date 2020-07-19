@@ -66,4 +66,14 @@ class DeliveryLocationController extends Controller
         }
         return ResponseHelper::responseDisplay(400, 'Operation failed');
     }
+
+
+    public function adminLocations()
+    {
+        $locations = $this->deliveryLocationService->fetchAllDeliveryLocationAdmin();
+        if ($locations) {
+            return ResponseHelper::responseDisplay(200, 'Operation successful', $locations);
+        }
+        return ResponseHelper::responseDisplay(400, 'Operation failed');
+    }
 }
