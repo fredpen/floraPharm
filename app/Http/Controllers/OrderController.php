@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ResponseHelper;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -27,10 +28,28 @@ class OrderController extends Controller
             } else if ($transaction['status']) {
 
                 return ResponseHelper::responseDisplay(200, 'Operation successful', $transaction['data']);
+            } else if ($transaction['mobile']) {
+                return ResponseHelper::responseDisplay(200, 'Operation successful', $transaction);
             }
             return ResponseHelper::responseDisplay(400, 'Operation failed', $transaction);
         }
         return ResponseHelper::responseDisplay(400, 'Operation failed', $transaction);
+    }
+
+    public function saveTransactionRef(Request $request) {
+        $order = $this->orderService->saveUserOrderTransactionRef($request, null);
+        if ($order) {
+            return ResponseHelper::responseDisplay(200, 'operation successful', $order);
+        }
+        return ResponseHelper::responseDisplay(400, 'Operation failed');
+    }
+
+    public function saveTransactionRefForAuthUser(Request $request) {
+        $order = $this->orderService->saveUserOrderTransactionRef($request, Auth::id());
+        if ($order) {
+            return ResponseHelper::responseDisplay(200, 'operation successful', $order);
+        }
+        return ResponseHelper::responseDisplay(400, 'Operation failed');
     }
 
     public function verifyTransaction(Request $request)

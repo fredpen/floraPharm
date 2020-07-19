@@ -159,4 +159,27 @@ class OrderRepository implements OrderInterface
              $query->where('product_name', 'like', '%'.$request->value.'%');
         })->with('orderDetail')->orWhere('order_num', 'LIKE','%'.$request->value.'%')->orWhere('reference_no', 'LIKE','%'.$request->value.'%')->get();
     }
+
+    public function saveTransactionRefForUserOrder($request, $id)
+    {
+        // TODO: Implement saveTransactionRefForUserOrder() method.
+
+        $order = $this->order->where('id', $request->order_id)->first();
+        if ($order->user_id) {
+            if ($order->user_id === $id) {
+                $order->reference_no = $request->reference_no;
+                $order->payment_status = 1;
+                if ($order->save()) {
+                    return $order;
+                }
+            }
+        } else {
+            $order->reference_no = $request->reference_no;
+            $order->payment_status = 1;
+            if ($order->save()) {
+                return $order;
+            }
+        }
+
+    }
 }
