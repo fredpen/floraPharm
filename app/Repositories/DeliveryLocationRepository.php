@@ -22,8 +22,8 @@ class DeliveryLocationRepository implements DeliveryLocationInterface
         $this->deliveryLocation->name = $request->name;
         $this->deliveryLocation->description = $request->description;
         $this->deliveryLocation->price = $request->price;
-        if ( $this->deliveryLocation->save()) {
-            return 'saved';
+        if ($this->deliveryLocation->save()) {
+            return "saved";
         }
         return 'can\'t be saved';
     }
@@ -36,6 +36,7 @@ class DeliveryLocationRepository implements DeliveryLocationInterface
             $location->name = $request->name;
             $location->description = $request->description;
             $location->price = $request->price;
+            $location->status = $request->status;
             if ($location->save()) {
                 return 'updated';
             }
@@ -57,9 +58,13 @@ class DeliveryLocationRepository implements DeliveryLocationInterface
 
     }
 
-    public function getAllLocation()
+    public function getAllLocation($admin = false)
     {
         // TODO: Implement getAllLocation() method.
-        return $this->deliveryLocation->all();
+        if ($admin) {
+            return $this->deliveryLocation->all();
+        }
+        return $this->deliveryLocation->where('status', 1)->get();
+
     }
 }

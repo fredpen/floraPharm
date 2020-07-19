@@ -54,4 +54,8 @@ class DeliveryLocationService
         return $this->deliveryLocationInterface->getAllLocation();
     }
 
+    public function fetchAllDeliveryLocationAdmin(){
+        return $this->deliveryLocationInterface->getAllLocation(true);
+    }
+
 }
