@@ -43,6 +43,8 @@ Route::group(['prefix' => 'order'], function () {
     Route::get('show/{orderId}', 'OrderController@getSingleOrder')->middleware(['auth:api', 'isAdmin']);
     Route::get('show-with-ref/{ref}', 'OrderController@showWithRef')->middleware();
     Route::get('all', 'OrderController@allOrder')->middleware(['auth:api', 'isAdmin']);
+    Route::post('save-transaction', 'OrderController@saveTransactionRef');
+    Route::post('save-transaction-auth-user', 'OrderController@saveTransactionRefForAuthUser')->middleware('auth:api');
     Route::post('search-order', 'OrderController@searchOrder')->middleware(['auth:api', 'isAdmin']);
 });
 
