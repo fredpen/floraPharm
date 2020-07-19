@@ -12,7 +12,7 @@ interface DeliveryLocationInterface
 
    public function deleteDeliveryLocation($id);
 
-   public function getAllLocation();
+   public function getAllLocation($admin = false);
 
 
 }

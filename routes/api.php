@@ -12,7 +12,7 @@ Route::get('admin-Landing-Page-Products', 'WebManagementController@adminLandingP
 Route::get('admin-Landing-Page-Products', 'WebManagementController@adminLandingPageProducts')->middleware(['auth:api', 'isAdmin']);
 
 
-
+// users
 Route::group(['prefix' => 'user'], function () {
     Route::post('register', 'Auth\RegisterController@create');
     Route::get('all', 'Auth\RegisterController@allUsers');
@@ -34,6 +34,8 @@ Route::group(['prefix' => 'category'], function () {
     Route::get('all-categories-without-sub', 'CategoryController@allWithoutSub');
 });
 
+
+// orders
 Route::group(['prefix' => 'order'], function () {
     Route::post('make-order', 'OrderController@makePayment')->middleware('auth:api');
     Route::post('guest-order', 'OrderController@makePayment');
@@ -63,6 +65,7 @@ Route::group(['prefix' => 'delivery-location'], function () {
     Route::post('update/{id}', 'DeliveryLocationController@updateLocation')->middleware(['auth:api', 'isAdmin']);
     Route::get('delete/{id}', 'DeliveryLocationController@deleteLocation')->middleware(['auth:api', 'isAdmin']);
     Route::get('/', 'DeliveryLocationController@locations');
+    Route::get('/admin/all', 'DeliveryLocationController@adminLocations')->middleware(['auth:api', 'isAdmin']);
 });
 
 
