@@ -10,6 +10,8 @@ interface OrderInterface
 
     public function saveReferenceNo($order, $reference);
 
+    public function saveTransactionRefForUserOrder($request, $id);
+
     public function verifyTransaction($reference);
 
     public function getOrder();

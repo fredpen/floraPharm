@@ -17,11 +17,17 @@ class OrderService
     }
 
     public function initializePayment($request) {
+        $mobile = $request->mobile ? $request->mobile : '';
 
         $emailAddress =  $request->user_detail ? $request->user_detail['email'] : Auth::user()->email;
          $order = $this->orderInterface->makeOrder($request);
 
         if($order === 'Error Processing (product/amount may not exist)') {
+            return $order;
+        }
+
+        if ($mobile) {
+            $order['mobile'] = true;
             return $order;
         }
 
@@ -70,6 +76,10 @@ class OrderService
             }
 
         }
+    }
+
+    public function saveUserOrderTransactionRef($request, $id) {
+        return $this->orderInterface->saveTransactionRefForUserOrder($request, $id);
     }
 
 
