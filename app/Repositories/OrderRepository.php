@@ -147,7 +147,16 @@ class OrderRepository implements OrderInterface
 
      public function getSingleOrder($orderId)
     {
-        return $this->order->with('orderDetail.product', 'address', 'user', 'deliveryLocation')->where('id', $orderId)->first();
+        $order = $this->order->with('orderDetail.product', 'address', 'user', 'deliveryLocation')->where('id', $orderId)->first();
+        if ($order) {
+            if ($order->user_id === Auth::id() || Auth::user()->type === 1) {
+                return $order;
+            } else {
+                return 'Unauthorized';
+            }
+        } else {
+            return 'Not found';
+        }
     }
 
 
