@@ -20,6 +20,8 @@ interface ProductInterface
 
     public function show($productId);
 
+    public function search($searchTerm);
+
     public function delete($productId);
 
     public function brand($brandId, $admin = false);

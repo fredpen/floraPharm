@@ -15,7 +15,7 @@ return [
 
     "WEBSITE_DETAILS" => [
         "displayMessage" => [
-            [ "message" => "Welcome to Floax pharmacy, we are here to serve "],
+            [ "message" => "Welcome to Florax pharmacy, we are here to serve "],
             [ "message" => "We deliver straight to your door step in matter of hours "],
             [ "message" => "Contact us on +234 9010880148 "]
         ],
