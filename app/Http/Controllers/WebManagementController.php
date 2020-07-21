@@ -13,6 +13,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class WebManagementController extends Controller
 {
@@ -24,6 +25,14 @@ class WebManagementController extends Controller
         }
         $sendMail = MailHelper::mailAdmin($request->title, $request->body, $request->from, $request->phone, $request->name);
         return ResponseHelper::success('Operation successful');
+    }
+
+
+    public function adminNotifications()
+    {
+        $adminEmail = Config::get('constants.WEBSITE_DETAILS.email');
+        $admin = User::where('email', $adminEmail)->first();
+        return ResponseHelper::success('Operation successful', $admin->notifications);
     }
 
     public function adminLandingPageProducts()

@@ -183,7 +183,7 @@ class UserRepository implements UserInterface
     public function allUsers()
     {
         $users =  User::where('status', 1);
-        return $users->count() ? $users->with(['userAddress', 'order'])->orderby('created_at', 'Desc')->paginate(40) : false;
+        return $users->count() ? $users->with(['userAddress', 'order'])->latest()->paginate(50) : false;
     }
 }
 
