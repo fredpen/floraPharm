@@ -14,7 +14,7 @@ $factory->define(\App\Models\WishList::class, function (Faker $faker) {
 
 $factory->define(\App\Models\Order::class, function (Faker $faker) {
     return [
-        'order_num' => $faker->numberBetween(100, 3000),
+        'order_num' => $faker->numberBetween(3000, 9000),
         'total_amount' => $faker->numberBetween(100, 30000),
         'payment_status' => $faker->boolean(),
         'reference_no' => $faker->numberBetween(999, 9999),

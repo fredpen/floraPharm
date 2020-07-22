@@ -30,8 +30,8 @@ $factory->define(\App\Models\SubCategory::class, function (Faker $faker) {
 
 $factory->define(\App\Models\Product::class, function (Faker $faker) {
    return [
-       'category_id' => $faker->numberBetween(0, 10),
-       'brand_id' => $faker->numberBetween(0, 10),
+       'category_id' => $faker->numberBetween(0, 5),
+       'brand_id' => $faker->numberBetween(0, 5),
        'name' => $faker->company,
        'sku' =>$faker->numberBetween(100, 100000),
        'quantity' => $faker->randomElement([0,1, 2]),
