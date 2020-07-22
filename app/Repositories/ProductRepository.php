@@ -109,7 +109,7 @@ class ProductRepository implements ProductInterface
         return $products;
     }
 
-    private function fetchWithLimit($queryString, $limit = 10)
+    private function fetchWithLimit($queryString, $limit = 7)
     {
         return $this->product->where([$queryString => 1, 'status' => 1])->limit($limit)->get();
     }
