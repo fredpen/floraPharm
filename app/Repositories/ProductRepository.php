@@ -35,6 +35,17 @@ class ProductRepository implements ProductInterface
         return $this->product->where('status', 1) ? $this->product->where('status', 1)->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate($this->paginate) : [];
     }
 
+    public function search($searchTerm)
+    {
+        $products = $this->product->where('status', 1)->where(function ($query) use ($searchTerm) {
+            $query->where('name', 'like', "%$searchTerm%")
+                ->orWhere('sku', 'like', "%$searchTerm%")
+                ->orWhere('description', 'like', "%$searchTerm%");
+        });
+        return $products->count() ? $products->latest()->paginate($this->paginate) : false;
+
+    }
+
     public function active()
     {
         return $this->product ? $this->product->where('status', 1)->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate($this->paginate) : false;

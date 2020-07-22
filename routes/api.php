@@ -87,6 +87,7 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('delete/{productId}', 'ProductController@delete')->middleware(['auth:api', 'isAdmin']);
     Route::get('show/{productId}', 'ProductController@show');
     Route::get('all', 'ProductController@all');
+    Route::get('search/{searchTerm}', 'ProductController@search');
     Route::get('admin/all', 'ProductController@adminAll');
     Route::get('active', 'ProductController@active');
 

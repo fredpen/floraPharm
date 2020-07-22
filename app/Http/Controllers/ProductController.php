@@ -53,6 +53,15 @@ class ProductController extends Controller
         return ResponseHelper::success('Operation successful', $products['message']);
     }
 
+    public function search($searchTerm)
+    {
+        $products = $this->productService->search($searchTerm);
+        if (!$products['status']) {
+            return ResponseHelper::badRequest("fail");
+        }
+        return ResponseHelper::success('Operation successful', $products['message']);
+    }
+
     public function adminAll()
     {
         $products = $this->productService->adminAll();
@@ -195,11 +204,11 @@ class ProductController extends Controller
     {
         $notification = [];
         $orders = OrderDetail::where('product_id', $productId)->with('order')->orderBy('created_at', 'desc')->limit(5)->get();
-        
+
         foreach ($orders as $OrderDetail) {
             if ($OrderDetail = $OrderDetail->order) {
                 $name = $OrderDetail->user_id ? $OrderDetail->user->first_name . " " . $OrderDetail->user->last_name : $OrderDetail->user_detail['name'];
-                $location = $OrderDetail->address_id ? $OrderDetail->user->address : $OrderDetail->user_detail['address'];
+                $location = $OrderDetail->user ? $OrderDetail->user->address : $OrderDetail->user_detail['address'];
 
                 $notif = ['name' => $name, 'location' => $location, 'time' => $OrderDetail->created_at->diffForHumans()];
                 array_push($notification, $notif);

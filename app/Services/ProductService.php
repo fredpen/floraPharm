@@ -49,6 +49,12 @@ class ProductService
         return $products ? ResponseHelper::reply(true, $products) : ResponseHelper::reply(false, "could not execute request");
     }
 
+    public function search($searchTerm)
+    {
+        $products = $this->productInterface->search($searchTerm);
+        return $products ? ResponseHelper::reply(true, $products) : ResponseHelper::reply(false, "could not execute request");
+    }
+
     public function adminAll()
     {
         $products = $this->productInterface->all(true);
