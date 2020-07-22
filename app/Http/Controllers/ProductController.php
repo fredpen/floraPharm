@@ -203,7 +203,7 @@ class ProductController extends Controller
     public function orderNotifications($productId)
     {
         $notification = [];
-        $orders = OrderDetail::where('product_id', $productId)->with('order')->orderBy('created_at', 'desc')->limit(5)->get();
+        $orders = OrderDetail::where('product_id', $productId)->whereHas('order')->with('order')->orderBy('created_at', 'desc')->limit(5)->get();
 
         foreach ($orders as $OrderDetail) {
             if ($OrderDetail = $OrderDetail->order) {
