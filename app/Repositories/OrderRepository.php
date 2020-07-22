@@ -142,7 +142,7 @@ class OrderRepository implements OrderInterface
     public function allOrdersForAdmin()
     {
         // TODO: Implement allOrdersForAdmin() method.
-        return $this->order->with('address', 'user')->paginate(30);
+        return $this->order->with('address', 'user')->whereHas('orderDetail')->paginate(40);
     }
 
      public function getSingleOrder($orderId)
@@ -163,7 +163,6 @@ class OrderRepository implements OrderInterface
     public function searchOrder($request)
     {
         // TODO: Implement searchOrder() method.
-
         return $this->order->whereHas('orderDetail', function (Builder $query) use ($request) {
              $query->where('product_name', 'like', '%'.$request->value.'%');
         })->with('orderDetail')->orWhere('order_num', 'LIKE','%'.$request->value.'%')->orWhere('reference_no', 'LIKE','%'.$request->value.'%')->get();

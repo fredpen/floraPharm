@@ -15,6 +15,7 @@ class ProductRepository implements ProductInterface
     {
         $this->product = $product;
         $this->paginate = 30;
+        $this->adminPaginate = 50;
     }
 
     public function create($request)
@@ -30,7 +31,7 @@ class ProductRepository implements ProductInterface
     public function all($admin = false)
     {
         if ($admin) {
-            return $this->product ? $this->product->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate($this->paginate) : [];
+            return $this->product ? $this->product->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate($this->adminPaginate) : [];
         }
         return $this->product->where('status', 1) ? $this->product->where('status', 1)->with(['category', 'subCategory', 'brand'])->orderBy('updated_at', 'desc')->paginate($this->paginate) : [];
     }
