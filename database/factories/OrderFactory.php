@@ -20,7 +20,7 @@ $factory->define(\App\Models\Order::class, function (Faker $faker) {
         'reference_no' => $faker->numberBetween(999, 9999),
         'promo_code' => $faker->numberBetween(100000, 57475663),
         'address_id' => $faker->numberBetween(1, 3),
-        'user_id' => $faker->numberBetween(1, 3),
+        'user_id' => 1,
     ];
 });
 
