@@ -30,10 +30,10 @@ $factory->define(\App\Models\SubCategory::class, function (Faker $faker) {
 
 $factory->define(\App\Models\Product::class, function (Faker $faker) {
    return [
-       'category_id' => $faker->numberBetween(0, 5),
-       'brand_id' => $faker->numberBetween(0, 5),
+       'category_id' => $faker->randomElement([1,2,3,4,5]),
+       'brand_id' => $faker->randomElement([1,2,3,4,5]),
        'name' => $faker->company,
-       'sku' =>$faker->numberBetween(100, 100000),
+       'sku' => $faker->company . $faker->randomNumber,
        'quantity' => $faker->randomElement([0,1, 2]),
        'description' => $faker->paragraph,
        'price' => $faker->numberBetween(100, 100000),
@@ -44,7 +44,7 @@ $factory->define(\App\Models\Product::class, function (Faker $faker) {
        'new' => 1,
        'landing_page' => 1,
        'image_url' => $faker->randomElement(["https://d36h5xyl0pecwl.cloudfront.net/productImage/HP1670.jpg", " https://d36h5xyl0pecwl.cloudfront.net/productImage/HP1651.jpg", "https://d36h5xyl0pecwl.cloudfront.net/productImage/HP1643.jpg", "https://d36h5xyl0pecwl.cloudfront.net/productImage/HP1637.jpg", "https://d36h5xyl0pecwl.cloudfront.net/productImage/HP01712.jpg"])
-       
+
    ];
 });
- 
+

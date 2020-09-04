@@ -11,7 +11,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        //
         factory('App\User', 10)->create()->each(function($u){
            $u->userAddress()->save(factory(\App\Models\UserAddress::class)->make());
         });
