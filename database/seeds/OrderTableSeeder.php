@@ -17,4 +17,5 @@ class OrderTableSeeder extends Seeder
 
        factory(\App\Models\WishList::class, 30)->create();
     }
+    
 }

@@ -13,6 +13,7 @@ $factory->define(\App\Models\Category::class, function (Faker $faker) {
 });
 
 
+
 $factory->define(\App\Models\Brand::class, function (Faker $faker){
    return [
        'name' => $faker->company,
