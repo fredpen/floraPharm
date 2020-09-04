@@ -12,6 +12,11 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
+        //
+        // factory('App\Models\Category', 5)->create()->each(function ($sub) {
+        //     $sub->subCategory()->save(factory(\App\Models\SubCategory::class)->make());
+        // });
+
         factory(\App\Models\Category::class, 5)->create();
 
         factory(\App\Models\Brand::class, 5)->create();
@@ -19,5 +24,4 @@ class ProductSeeder extends Seeder
        factory(\App\Models\Product::class, 50)->create();
 
     }
-    
 }
