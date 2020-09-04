@@ -14,11 +14,5 @@ class UsersTableSeeder extends Seeder
         factory('App\User', 10)->create()->each(function($u){
            $u->userAddress()->save(factory(\App\Models\UserAddress::class)->make());
         });
-
-        factory('App\Models\Category', 30)->create()->each(function ($sub) {
-            $sub->subCategory()->save(factory(\App\Models\SubCategory::class)->make());
-        });
-
-        factory(\App\Models\Brand::class, 30)->create();
     }
 }

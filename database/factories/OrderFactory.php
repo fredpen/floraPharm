@@ -6,8 +6,8 @@ use Faker\Generator as Faker;
 
 $factory->define(\App\Models\WishList::class, function (Faker $faker) {
     return [
-        'user_id' => $faker->numberBetween(1, 10),
-        'product_id' => $faker->numberBetween(1, 10),
+        'user_id' => $faker->randomElement([1,2,3,4,5]),
+        'product_id' => $faker->randomElement([1,2,3,4,5]),
     ];
 });
 
@@ -20,7 +20,7 @@ $factory->define(\App\Models\Order::class, function (Faker $faker) {
         'reference_no' => $faker->numberBetween(999, 9999),
         'promo_code' => $faker->numberBetween(100000, 57475663),
         'address_id' => 1,
-        'user_id' => $faker->numberBetween(1, 10),
+        'user_id' => $faker->randomElement([1,2,3,4,5]),
     ];
 });
 
