@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user', 'Auth\RegisterController@getUser');
 });
+
+
 Route::get('website-details', 'DeliveryLocationController@websiteDetails');
 Route::post('contact-us', 'WebManagementController@mailAdmin');
 
