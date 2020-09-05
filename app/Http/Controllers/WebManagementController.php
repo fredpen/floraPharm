@@ -59,7 +59,7 @@ class WebManagementController extends Controller
     private function validateMail($request)
     {
         return Validator::make($request, [
-            'title' => "required|string",
+            'title' => "string",
             'body' => "required|string",
             'from' => "required|email",
             'phone' => "required|string",
