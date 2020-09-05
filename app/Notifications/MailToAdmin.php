@@ -4,7 +4,6 @@ namespace App\Notifications;
 
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Config;
 
 class MailToAdmin extends Notification
 {
@@ -34,7 +33,7 @@ class MailToAdmin extends Notification
     {
         return (new MailMessage)
             ->greeting("Dear Florax")
-            ->line("An email was just sent to you from" . $this->from . " with the following details")
+            ->line("An email was just sent to you from " . $this->from . " with the following details")
             ->line("Name: " . $this->name)
             ->line("Email: " . $this->from)
             ->line("Phone: " . $this->phone)
