@@ -32,14 +32,17 @@ class MailToAdmin extends Notification
 
     public function toMail($notifiable)
     {
+        $baseUrl = Config::get('constants.url') . "/admin/notifications";
         return (new MailMessage)
-            ->greeting("Dear Florax")
-            ->line("An email was just sent to you from" . $this->from . " with the following details")
+            ->greeting("Hi Florax")
+            ->line("How are you doing today? this is to notify you that, ")
+            ->line("An email was just sent to you from " . $this->name . " with the following details")
             ->line("Name: " . $this->name)
             ->line("Email: " . $this->from)
             ->line("Phone: " . $this->phone)
             ->line("Title: " . $this->title)
-            ->line("Message body: " . $this->body);
+            ->line("Message body: " . $this->body)
+            ->action("Read more", $baseUrl);
     }
 
     public function toDatabase($notifiable)

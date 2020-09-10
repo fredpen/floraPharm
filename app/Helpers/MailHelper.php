@@ -5,27 +5,28 @@ namespace App\Helpers;
 use App\Mail\OrderShipped;
 use App\Models\Order;
 use App\Notifications\MailToAdmin;
+use App\Notifications\OrderPlaced;
 use App\User;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 
 class MailHelper
 {
-    public static function mailAdmin($title, $body, $from, $phone, $name)
+    private static function admin()
     {
         $adminEmail = Config::get('constants.WEBSITE_DETAILS.email');
-        $admin = User::where('email', $adminEmail)->first();
-        return $admin->notify(new MailToAdmin($title, $body, $from, $phone, $name));
+        return User::where('email', $adminEmail)->first();
     }
 
-    public static function orderNotification($orderId)
+    public static function mailAdmin($title, $body, $customerEmail, $phone, $name)
     {
-        $order = Order::where('id', $orderId)->with('user')->first();
-        $adminEmail = Config::get('constants.WEBSITE_DETAILS.email');
-        $from = $order->user ? $order->user->email : $order->user_detail->email;
+        return Self::admin()->notify(new MailToAdmin($title, $body, $customerEmail, $phone, $name));
+    }
 
-        Mail::to($from)
-            ->bcc($adminEmail)
-            ->send(new OrderShipped($order));
+    public static function orderNotification($order)
+    {
+        $customerEmail = $order->user ? $order->user['email'] : $order->user_detail['email'];
+        Mail::to($customerEmail)->send(new OrderShipped($order));
+        return Self::admin()->notify(new OrderPlaced($order));
     }
 }
