@@ -10,8 +10,7 @@ class OrderShipped extends Mailable
 {
     use  SerializesModels;
 
-    protected $order;
-    protected $name;
+    public $order;
 
     public function __construct($order)
     {
@@ -26,14 +25,13 @@ class OrderShipped extends Mailable
     public function build()
     {
         $url = Config::get('constants.url');
-        $orderNum = $this->order->reference_no;
+        $orderNum = $this->order['reference_no'];
         $orderDetailsUrl = "$url/orders/$orderNum/order-details";
 
-        $name = $this->order->user ? $this->order->user->first_name . " " .  $this->order->user->last_name : $this->order->user_detail->name;
+        $name = $this->order->user ? $this->order->user['first_name'] . " " .  $this->order->user['last_name'] : $this->order->user_detail['name'];
 
         return $this->markdown('emails.orders.shipped')
             ->with([
-                'order' => $this->order,
                 'name' => $name,
                 'url' => $orderDetailsUrl,
             ]);
