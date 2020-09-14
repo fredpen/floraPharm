@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Config;
 
 class OrderPlaced extends Notification
 {
@@ -33,9 +34,12 @@ class OrderPlaced extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = Config::get('constants.url') . "/admin/orders/". $this->order->id . "/order-details";
         return (new MailMessage)
-            ->greeting("Hi Florax")
-            ->line("How are you doing today? this is to notify you that an order has been made at your store.");
+            ->greeting("Hi Florax,")
+            ->line("How are you doing today?")
+            ->line("This is to notify you that an order has been made at your store.")
+            ->action("Order details", $url);
 
     }
 
@@ -49,7 +53,6 @@ class OrderPlaced extends Notification
     {
         return [
             "order" => $this->order,
-
         ];
     }
 }

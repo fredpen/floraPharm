@@ -23,9 +23,9 @@ return [
         "adress_down" => "Lekki Phase 1, Lagos State.",
         "phone" => "+234 9010880148",
         "email" => "support@floraxPharmacy.com",
-        "twitter" => "twitter@floraxPharmacy.com",
-        "facebook" => "facebook@floraxPharmacy.com",
-        "instagram" => "instagram@floraxPharmacy.com"
+        "Linkedln" => "https://www.linkedin.com/company/florax-pharmacy-and-stores",
+        "facebook" => "https://www.facebook.com/floraxpharmacy/",
+        "instagram" => "http://www.instagram.com/floraxpharmacy/"
     ],
 
 

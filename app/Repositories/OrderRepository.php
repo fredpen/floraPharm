@@ -120,7 +120,7 @@ class OrderRepository implements OrderInterface
     public function verifyTransaction($reference)
     {
         // TODO: Implement verifyTransaction() method.
-         $order = $this->order->where('reference_no', $reference['data']['reference'])->with(['user', 'orderDetail'])->first();
+         $order = $this->order->where('reference_no', $reference['data']['reference'])->with(['user', 'orderDetail', 'deliveryLocation', 'address'])->first();
         $order->payment_status = 1;
         if ($order->save()) {
             MailHelper::orderNotification($order);
