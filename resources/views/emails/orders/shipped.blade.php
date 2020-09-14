@@ -45,6 +45,7 @@
 
         .content {
             width: 100%;
+            font-size: 14px;
         }
 
         .title {
@@ -91,12 +92,6 @@
             display: flex !important;
         }
 
-        .td {
-            border: 3px solid white;
-            padding: 10px;
-            width: 50%;
-        }
-
         table {
             max-widtzh: 500px;
         }
@@ -111,15 +106,21 @@
             margin: 10px 0;
         }
 
-
+        .d25w {
+            width : 25%;
+            text-align: center;
+            font-size: 13px;
+        }
 
     </style>
 </head>
 
 <body>
     <div class="flex-center position-ref full-height">
-
         <div class="content">
+
+
+        <div >
             <div class="fullFlex">
                 <img class="logo" width="100px" target="_blank"
                     src="https://res.cloudinary.com/dk93ofxer/image/upload/v1595159521/logo_qiatnl.jpg"
@@ -128,22 +129,17 @@
             <div>
                 <h3>Dear {{ $name }},</h3>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero alias pariatur molestias, non
-                    voluptates velit distinctio aspernatur fugiat at, placeat, nobis beatae? Inventore nesciunt tempora
-                    omnis similique autem eligendi maiores!
+                    This is to notify you that your order with order number <strong>{{ strtoupper($orderNum) }}</strong> on Florax Pharmacy has been recieved and confirmed.
                 </p>
+                <p> <a href="{{ $url }}">For more information about your order click on this link</a></p>
 
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta amet accusamus doloremque ipsum qui
-                    debitis pariatur ipsa eligendi? Harum, nihil? Non, ratione error? Sed nemo voluptatem nobis
-                    accusantium maiores quidem.</p>
+                <p>Find below the details of your oder, Kindly contact us if you notice any issue with your order, Thanks</p>
 
-                <p> <a href="{{ $url }}">For more information about your order; click on this link</a></p>
 
-                <p>Thanks for shopping on florax Pharmacy</p>
             </div>
 
 
-            <table>
+            <table style="margin-top:30px;width: 100%; max-width:500px">
                 <thead>
                     <tr>
                         <th colspan="2" style="padding:10px">Order details</th>
@@ -152,79 +148,83 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td >
-                            <p><strong>Order Number</strong>: {{ $orderNum }}</p>
-                            <p><strong>Date of Order</strong>: {{ $order->created_at }}</p>
-                            <p><strong>Delivery Type:</strong>:
-                                {{ $order->delivery_type == 1 ? 'Home Delivery' : 'Pick up' }}</p>
-                            @if ($order->delivery_location_id)
-                                <p><strong>Shipping Region: </strong>:
-                                    {{ $order->deliveryLocation->name }}</p>
-                            @endif
-
-                        </td>
-
-                        <td class="td">
-                            <p><strong>Email</strong>: {{ $email }}</p>
-                            <p><strong>Telephone</strong>: {{ $phone }}</p>
-
+                        <td>
                             <p><strong>Order status: </strong>:
                                 {{ $order->payment_status ? 'Paid' : 'Awaiting payment' }}</p>
-                        </td>
+                                <p><strong>Order Number</strong>: {{ strtoupper($orderNum) }}</p>
+                                <p><strong>Delivery Type:</strong>:
+                                    {{ $order->delivery_type == 1 ? 'Home Delivery' : 'Pick up' }}</p>
+                                @if ($order->delivery_location_id)
+                                    <p><strong>Shipping Region: </strong>:
+                                        {{ $order->deliveryLocation->name }}</p>
+                                @endif
+                                <p><strong>Phone Number</strong>: {{ $phone }}</p>
 
-                    </tr>
-                </tbody>
-            </table>
+                            <p><strong>Date of Order</strong>: {{ $order->created_at }}</p>
 
-            {{-- delivery location --}}
-            <table style="margin-top:30px">
-                <thead>
-                    <tr>
-                        <th style="padding:10px">
-                           <p > {{ $order->delivery_type == 1 ? 'Delivery Location' : 'Pick up Location' }}</p></th>
+                            <p><strong>Email</strong>: {{ $email }}</p>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="padding:10px">
-                            {{ $address }}
+
+
+
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-
-            <table style="margin-top:30px">
+            <table style="margin-top:40px">
                 <thead>
                     <tr>
-                        <th style="padding:10px">
-                            {{ $order->delivery_type == 1 ? 'Delivery Location' : 'Pick up Location' }}</th>
-
+                        <th colspan="4" style="padding:20px">Product(s) Details</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr >
-                        <td><strong>Product Name</strong> </td>
-                        <td><strong>Quantity</strong> </td>
-                        <td><strong>Price</strong> </td>
-                        <td><strong>Total</strong> </td>
+                    <tr style="padding:20px">
+                        <td class="d25w"><strong>Product Name</strong> </td>
+                        <td class="d25w"><strong>Quantity</strong> </td>
+                        <td class="d25w"><strong>Price</strong> </td>
+                        <td class="d25w"><strong>Total</strong> </td>
                     </tr>
                     @foreach ($order->orderDetail as $item)
-                        <tr style="display: flex">
-                            <td> {{ $item->product_name }} </td>
-                            <td> {{ $item->quantity }} </td>
-                            <td> {{ '#' . number_format($item->amount) }} </td>
-                            <td> {{ '#' . number_format($item->total_amount) }} </td>
+                        <tr >
+                            <td class="d25w"> <p> {{ $item->product_name }} </p></td>
+                            <td class="d25w"> <p> {{ $item->quantity }} </p></td>
+                            <td class="d25w"> <p> {{ '#' . number_format($item->amount) }} </p></td>
+                            <td class="d25w"> <p> {{ '#' . number_format($item->total_amount) }} </p></td>
                         </tr>
                     @endforeach
                     <tr>
-                        <td style="text-align:right" colspan="2"> {{ $item->product_name }} </td>
-                        <td> {{ '#' . number_format($item->total_amount) }} </td>
+                        <td style="text-align:center" colspan="3"> <p>Total </p></td>
+                        <td><p> <strong>{{ '#' . number_format($order->total_amount) }}</strong></p> </td>
                     </tr>
                 </tbody>
             </table>
+
+
+
+             {{-- delivery location --}}
+             <table style="margin-top:30px; max-width:500px"">
+                <thead>
+                    <tr>
+                        <th style="padding:10px">
+                            <p> {{ $order->delivery_type == 1 ? 'Delivery Location' : 'Pick up Location' }}</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding:10px;"> <strong>Address : </strong>{{ $address }} </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin: 50px 0">
+
+                <p>Thanks for your patronage.</p>
+                <p>Florax Pharmacy</p>
+            </div>
         </div>
+    </div>
     </div>
 </body>
 

@@ -31,8 +31,6 @@ class OrderShipped extends Mailable
         return $this->view('emails.orders.shipped')
             ->with([
                 'orderNum' => $orderNum,
-
-
                 'url' => "$url/orders/$orderNum/order-details",
                 'deliveryLocation' => $this->order->deliveryLocation,
                 'loggedInUser' => $this->order->user_id,
@@ -40,7 +38,6 @@ class OrderShipped extends Mailable
                 'phone' => $this->order->user ? $this->order->user['phone_number'] : $this->order->user_detail['phone_number'],
                 'name' => $this->order->user ? $this->order->user['first_name'] . " " .  $this->order->user['last_name'] : $this->order->user_detail['name'],
                 'address' => $this->order->delivery_type == 1 ? $clientAddress : $floraxAddress
-
             ]);
     }
 }
