@@ -32,8 +32,9 @@ class WebManagementController extends Controller
     public function adminNotifications()
     {
         $adminEmail = Config::get('constants.WEBSITE_DETAILS.email');
-        $admin = User::where('email', $adminEmail)->first();
-        return ResponseHelper::success('Operation successful', $admin->notifications);
+        $notifications = User::where('email', $adminEmail)->first()->notifications;
+        $notifications->markAsRead();
+        return ResponseHelper::success('Operation successful', $notifications);
     }
 
     public function adminLandingPageProducts()
