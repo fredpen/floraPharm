@@ -203,7 +203,7 @@
 
 
              {{-- delivery location --}}
-             <table style="margin-top:30px; max-width:500px"">
+             <table style="margin-top:30px; max-width:350px"">
                 <thead>
                     <tr>
                         <th style="padding:10px">
