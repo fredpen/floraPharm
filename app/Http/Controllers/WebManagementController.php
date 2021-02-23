@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Config;
 
 class WebManagementController extends Controller
 {
+    public function home()
+    {
+        return "welcome but there is nothing for you here";
+    }
+
     public function mailAdmin(Request $request)
     {
         $validate = $this->validateMail($request->all());
