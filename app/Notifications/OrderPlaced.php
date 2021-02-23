@@ -2,23 +2,17 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Config;
 
-class MailToUser extends Notification
+class OrderPlaced extends Notification
 {
-    use Queueable;
+    protected $order;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __construct($order)
     {
-        //
+        $this->order = $order;
     }
 
     /**
@@ -29,21 +23,24 @@ class MailToUser extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
      * Get the mail representation of the notification.
-     *
+
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
+        $url = Config::get('constants.url') . "/admin/orders/". $this->order->id . "/order-details";
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->greeting("Hi Florax,")
+            ->line("How are you doing today?")
+            ->line("This is to notify you that an order has been made at your store.")
+            ->action("Order details", $url);
+
     }
 
     /**
@@ -55,7 +52,7 @@ class MailToUser extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            "order" => $this->order,
         ];
     }
 }

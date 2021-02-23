@@ -16,16 +16,16 @@ return [
     "WEBSITE_DETAILS" => [
         "displayMessage" => [
             [ "message" => "Welcome to Florax pharmacy, we are here to serve "],
-            [ "message" => "We deliver to your door step in matter of hours "],
+            [ "message" => "We deliver straight to your door step "],
             [ "message" => "Contact us on +234 9010880148 "]
         ],
         "address_top" => "NO 9, Otunba Adedoyin Ogungbe Crescent,",
         "adress_down" => "Lekki Phase 1, Lagos State.",
         "phone" => "+234 9010880148",
         "email" => "support@floraxPharmacy.com",
-        "twitter" => "twitter@floraxPharmacy.com",
-        "facebook" => "facebook@floraxPharmacy.com",
-        "instagram" => "instagram@floraxPharmacy.com"
+        "Linkedln" => "https://www.linkedin.com/company/florax-pharmacy-and-stores",
+        "facebook" => "https://www.facebook.com/floraxpharmacy/",
+        "instagram" => "http://www.instagram.com/floraxpharmacy/"
     ],
 
 

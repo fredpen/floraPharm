@@ -3,7 +3,7 @@
 
 namespace App\Repositories;
 
-
+use App\Helpers\MailHelper;
 use App\Interfaces\OrderInterface;
 use App\Models\OrderDetail;
 use App\Models\Product;
@@ -26,7 +26,7 @@ class OrderRepository implements OrderInterface
     public function __construct(Order $order)
     {
         $this->order = $order;
-      //  $this->order_detail = $order_detail;
+        //  $this->order_detail = $order_detail;
     }
 
 
@@ -34,7 +34,7 @@ class OrderRepository implements OrderInterface
     {
         $order = $this->order->where('reference_no', $ref)->first();
         if (!$order) {
-           return false;
+            return false;
         }
         return $order->user_id ? $this->order->where('reference_no', $ref)->with(['user', 'orderDetail', "address", "deliveryLocation"])->first() : $this->order->where('reference_no', $ref)->with(['user', 'orderDetail', "deliveryLocation"])->first();
     }
@@ -52,10 +52,9 @@ class OrderRepository implements OrderInterface
         $this->order->delivery_location_id = $request->delivery_location_id;
         $this->order->user_id = Auth::id();
         foreach ($request->orders as $re) {
-           $product = Product::where('id', $re['productId'])->first();
-            if($product) {
-                 $this->checkProductValidity($re, $product);
-
+            $product = Product::where('id', $re['productId'])->first();
+            if ($product) {
+                $this->checkProductValidity($re, $product);
             }
         }
 
@@ -69,37 +68,34 @@ class OrderRepository implements OrderInterface
         if ($this->save_status) {
             $this->order->total_amount = $this->total_amount + $this->shippingFee;
             $this->order->save();
-            foreach($this->products as $product) {
+            foreach ($this->products as $product) {
                 $this->order->orderDetail()->save($product);
             }
             return $this->order;
         } else {
             return 'Error Processing (product/amount may not exist)';
         }
-
-
-
     }
 
-    public function checkProductValidity($request, $product) {
+    public function checkProductValidity($request, $product)
+    {
 
-        $this->order_detail = new OrderDetail ();
+        $this->order_detail = new OrderDetail();
 
         if ($product->discount_price !== 0.00 || $product->discount_price) {
-              if ( (double) $request['amount'] === (double) $product->discount_price) {
-                   $this->saveOrder($product, $request);
-
-              }
+            if ((float) $request['amount'] === (float) $product->discount_price) {
+                $this->saveOrder($product, $request);
+            }
         } else {
-            if ((double) $request['amount'] === (double) $product->price) {
-                 $this->saveOrder($product, $request);
+            if ((float) $request['amount'] === (float) $product->price) {
+                $this->saveOrder($product, $request);
             }
         }
-
     }
 
 
-    public function saveOrder($product, $request) {
+    public function saveOrder($product, $request)
+    {
 
         $this->order_detail->product_id = $request['productId'];
         $this->order_detail->product_name = $product->name;
@@ -116,21 +112,20 @@ class OrderRepository implements OrderInterface
         // TODO: Implement saveReferenceNo() method.
         $order = $this->order->where('id', $order->id)->first();
         $order->reference_no = $reference['data']['reference'];
-        if($order->save()) {
+        if ($order->save()) {
             return 'saved';
         }
-
     }
 
     public function verifyTransaction($reference)
     {
         // TODO: Implement verifyTransaction() method.
-        $verifyTransaction = $this->order->where('reference_no', $reference['data']['reference'])->first();
-        $verifyTransaction->payment_status = 1;
-        if ($verifyTransaction->save()) {
+         $order = $this->order->where('reference_no', $reference['data']['reference'])->with(['user', 'orderDetail', 'deliveryLocation', 'address'])->first();
+        $order->payment_status = 1;
+        if ($order->save()) {
+            MailHelper::orderNotification($order);
             return 'successful';
         }
-
     }
 
     public function getOrder()
@@ -145,7 +140,7 @@ class OrderRepository implements OrderInterface
         return $this->order->with('address', 'user')->whereHas('orderDetail')->paginate(40);
     }
 
-     public function getSingleOrder($orderId)
+    public function getSingleOrder($orderId)
     {
         $order = $this->order->with('orderDetail.product', 'address', 'user', 'deliveryLocation')->where('id', $orderId)->first();
         if ($order) {
@@ -164,8 +159,8 @@ class OrderRepository implements OrderInterface
     {
         // TODO: Implement searchOrder() method.
         return $this->order->whereHas('orderDetail', function (Builder $query) use ($request) {
-             $query->where('product_name', 'like', '%'.$request->value.'%');
-        })->with('orderDetail')->orWhere('order_num', 'LIKE','%'.$request->value.'%')->orWhere('reference_no', 'LIKE','%'.$request->value.'%')->get();
+            $query->where('product_name', 'like', '%' . $request->value . '%');
+        })->with('orderDetail')->orWhere('order_num', 'LIKE', '%' . $request->value . '%')->orWhere('reference_no', 'LIKE', '%' . $request->value . '%')->get();
     }
 
     public function saveTransactionRefForUserOrder($request, $id)
@@ -188,6 +183,5 @@ class OrderRepository implements OrderInterface
                 return $order;
             }
         }
-
     }
 }

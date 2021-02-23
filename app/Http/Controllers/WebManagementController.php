@@ -23,7 +23,8 @@ class WebManagementController extends Controller
         if ($validate->fails()) {
             return ResponseHelper::reply(false, $validate->errors()->first());
         }
-        $sendMail = MailHelper::mailAdmin($request->title, $request->body, $request->from, $request->phone, $request->name);
+        $title = $request->title ? $request->title : '';
+        $sendMail = MailHelper::mailAdmin($title, $request->body, $request->from, $request->phone, $request->name);
         return ResponseHelper::success('Operation successful');
     }
 
@@ -31,8 +32,9 @@ class WebManagementController extends Controller
     public function adminNotifications()
     {
         $adminEmail = Config::get('constants.WEBSITE_DETAILS.email');
-        $admin = User::where('email', $adminEmail)->first();
-        return ResponseHelper::success('Operation successful', $admin->notifications);
+        $notifications = User::where('email', $adminEmail)->first()->notifications;
+        $notifications->markAsRead();
+        return ResponseHelper::success('Operation successful', $notifications);
     }
 
     public function adminLandingPageProducts()
@@ -59,7 +61,7 @@ class WebManagementController extends Controller
     private function validateMail($request)
     {
         return Validator::make($request, [
-            'title' => "required|string",
+            'title' => "string",
             'body' => "required|string",
             'from' => "required|email",
             'phone' => "required|string",

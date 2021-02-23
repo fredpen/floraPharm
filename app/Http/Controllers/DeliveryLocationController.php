@@ -18,7 +18,8 @@ class DeliveryLocationController extends Controller
     }
     public function websiteDetails()
     {
-        return ResponseHelper::responseDisplay(200, 'Operation successful', Config::get('constants.WEBSITE_DETAILS', []));
+        $details = Config::get('constants.WEBSITE_DETAILS', []);
+        return ResponseHelper::responseDisplay(200, 'Operation successful', $details);
     }
 
     public function addLocation(Request $request)
