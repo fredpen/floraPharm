@@ -16,7 +16,7 @@ return [
     "WEBSITE_DETAILS" => [
         "displayMessage" => [
             [ "message" => "Welcome to Florax pharmacy, we are here to serve "],
-            [ "message" => "We deliver straight to your door step in matter of hours "],
+            [ "message" => "We deliver straight to your door step "],
             [ "message" => "Contact us on +234 9010880148 "]
         ],
         "address_top" => "NO 9, Otunba Adedoyin Ogungbe Crescent,",
