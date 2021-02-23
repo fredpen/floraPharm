@@ -18,7 +18,8 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    // 'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => 'smtp',
 
     /*
     |--------------------------------------------------------------------------
@@ -31,7 +32,8 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => 'imap.hostinger.com',
+    // 'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +46,8 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => '993',
+    // 'port' => env('MAIL_PORT', 587),
 
     /*
     |--------------------------------------------------------------------------
@@ -86,9 +89,11 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+    'username' => 'support@impromptutasks.com',
+    // 'username' => env('MAIL_USERNAME'),
 
-    'password' => env('MAIL_PASSWORD'),
+    // 'password' => env('MAIL_PASSWORD'),
+    'password' => 'fred@2019',
 
     /*
     |--------------------------------------------------------------------------
