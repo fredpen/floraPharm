@@ -1,14 +1,6 @@
 <?php
 
-use App\Mail\OrderShipped;
-use App\Models\Order;
 use Illuminate\Support\Facades\Route;
-
-Route::get('fredo', function () {
-    $order = Order::where('id', 7)->with('user', 'orderDetail', 'deliveryLocation', 'address')->first();
-    return new OrderShipped($order);
-});
-
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user', 'Auth\RegisterController@getUser');
