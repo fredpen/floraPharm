@@ -10,8 +10,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::get('website-details', 'DeliveryLocationController@websiteDetails');
 Route::post('contact-us', 'WebManagementController@mailAdmin');
 Route::get('admin-Landing-Page-Products', 'WebManagementController@adminLandingPageProducts')->middleware(['auth:api', 'isAdmin']);
-
-Route::get('admin-Landing-Page-Products', 'WebManagementController@adminLandingPageProducts')->middleware(['auth:api', 'isAdmin']);
 Route::get('admin/notifications', 'WebManagementController@adminNotifications')->middleware(['auth:api', 'isAdmin']);
 
 
